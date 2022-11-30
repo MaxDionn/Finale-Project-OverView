@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import ErrorPage from "../../ErrorPage";
+import { Favorite } from "../../Favorite";
 
 const MoviesDetails = () => {
     const {id} = useParams()
@@ -12,7 +13,7 @@ const MoviesDetails = () => {
         fetch(`/get-movieById/${id}`)
         .then(res => res.json())
         .then((data) => {
-            if (data.status === 400 || data.statut === 500){
+            if (data.status === 400 || data.status === 500){
                 return new Error(data.message)
             }
             else{
@@ -23,7 +24,7 @@ const MoviesDetails = () => {
         .catch(() => {
             setStateMovie("error")
         })
-    },[])
+    },[id])
 
     const [stateCredits, setStateCredits] =useState();
 
@@ -31,7 +32,7 @@ const MoviesDetails = () => {
         fetch(`/get-movieById/${id}/credits`)
         .then(res => res.json())
         .then((data) => {
-            if (data.status === 400 || data.statut === 500){
+            if (data.status === 400 || data.status === 500){
                 return new Error(data.message)
             }
             else{
@@ -42,7 +43,7 @@ const MoviesDetails = () => {
         .catch(() => {
             setStateCredits("error")
         })
-    },[])
+    },[id])
 
     const [stateSimilar, setStateSimilar] =useState();
 
@@ -50,7 +51,7 @@ const MoviesDetails = () => {
         fetch(`/get-movieById/${id}/similar`)
         .then(res => res.json())
         .then((data) => {
-            if (data.status === 400 || data.statut === 500){
+            if (data.status === 400 || data.status === 500){
                 return new Error(data.message)
             }
             else{
@@ -61,7 +62,7 @@ const MoviesDetails = () => {
         .catch(() => {
             setStateSimilar("error")
         })
-    },[])
+    },[id])
 
     if (stateCredits  === "error") {
         return <ErrorPage/>
@@ -75,7 +76,10 @@ const MoviesDetails = () => {
             <All>
                 <Left>
                 <Poster>
+                    <div>
                     <img src={backdrop_url+stateMovie.backdrop_path}/>
+                    <Favorite/>
+                    </div>
                     <Detail>
                         <h2>{stateMovie.title}</h2>
                         <h1>Release : {stateMovie.release_date}</h1>
@@ -86,7 +90,7 @@ const MoviesDetails = () => {
                             </Genre>
                         <p>{stateMovie.runtime} min.</p>
                         <h5>Rate : </h5>
-                        <p>{stateMovie.vote_average}/10</p>
+                        <p>{Math.floor(stateMovie.vote_average)}/10</p>
                         <h5> - {stateMovie.overview}</h5>
                     </Detail>
                 </Poster>
@@ -120,7 +124,7 @@ const MoviesDetails = () => {
                                 <img src={backdrop_url+similar.poster_path}/>
                                 <div>
                                     <h3>{similar.title}</h3>
-                                    <p><span>{similar.vote_average}</span></p>
+                                    <p><span>{Math.floor(similar.vote_average)}/10</span></p>
                                 </div>
                             </Casting>
                         )

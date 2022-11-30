@@ -40,10 +40,10 @@ const getMovieById = async(req, res)=>{
 
 const getCreditMovieById = async(req, res)=>{
     const id = Number(req.params.id)
-    let movieById = start_url + `/movie/${id}/credits` + API_key;
+    let movieCreditById = start_url + `/movie/${id}/credits` + API_key;
 try{
-    const movieId = await request(movieById)
-    res.status(200).send(movieId)
+    const movieCreditId = await request(movieCreditById)
+    res.status(200).send(movieCreditId)
 
 }catch(err){
     console.log(err)

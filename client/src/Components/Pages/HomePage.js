@@ -53,54 +53,60 @@ const HomePage = () => {
             {!state || !stateTv ? 
             <LoadingCube/>
             :
-        <div>
             <div>
-                <div>
+                <Title>
                     <h2>Most Popular Movies</h2>
-                </div>
-                <MapSelec>
-                {state.map((item, index) => {
-                    let backdrop_url = "https://image.tmdb.org/t/p/w500";
-                    return (
-                        <Posters key={index} to={`/movies/${item.id}`}>
-                            <img src={backdrop_url+item.backdrop_path}></img>
-                            <p>{item.vote_average}/10</p>
-                            <h3>{item.title}</h3>
-                            <div>{item.release_date}</div>
-                            <p>{item.id}</p>
-                            </Posters>
-                        )
-                    })}
-                </MapSelec>
-            </div>
-            <div>
-                <div>
                     <h2>Most Popular Tv Shows</h2>
-                </div>
-                <MapSelec>
-                {stateTv.map((tv, index) => {
-                    let backdrop_url = "https://image.tmdb.org/t/p/w500";
-                    return (
-                        <Posters key={index} to={`/tvShows/${tv.id}`}>
-                            <img src={backdrop_url+tv.backdrop_path}></img>
-                            <p>{tv.vote_average}/10</p>
-                            <h3>{tv.name}</h3>
-                            <div>{tv.first_air_date}</div>
-                            <p>{tv.id}</p>
-                        </Posters>
-                        )
-                    })}
-                </MapSelec>
+                </Title>
+
+                <All>
+                    <MapSelec>
+                    {state.map((item, index) => {
+                        let backdrop_url = "https://image.tmdb.org/t/p/w500";
+                        return (
+                            <Posters key={index} to={`/movies/${item.id}`}>
+                                <img src={backdrop_url+item.backdrop_path}></img>
+                                <p>{Math.floor(item.vote_average)}/10</p>
+                                <h3>{item.title}</h3>
+                                <div>{item.release_date}</div>
+                                <p>{item.id}</p>
+                                </Posters>
+                            )
+                        })}
+                    </MapSelec>
+                    <MapSelec2>
+                    {stateTv.map((tv, index) => {
+                        let backdrop_url = "https://image.tmdb.org/t/p/w500";
+                        return (
+                            <Posters key={index} to={`/tvShows/${tv.id}`}>
+                                <img src={backdrop_url+tv.backdrop_path}></img>
+                                <p>{Math.floor(tv.vote_average)}/10</p>
+                                <h3>{tv.name}</h3>
+                                <div>{tv.first_air_date}</div>
+                                <p>{tv.id}</p>
+                            </Posters>
+                            )
+                        })}
+                    </MapSelec2>
+                </All>
             </div>
-        </div>
             }
         </Home>
     )
 }
 }
 
+const All = styled.div`
+display: flex;
+`;
+
+const Title = styled.div`
+display: flex;
+justify-content: space-around;
+`;
+
 const Home = styled.div`
-margin: 5% 6%;
+margin: 5% 3%;
 display: flex;
 flex-direction: row;
 font-family: 'Indie Flower', cursive;
@@ -112,12 +118,9 @@ h2{
 
 const Posters = styled(Link)`
     all: unset;
-    margin: 0px;
-    padding: 0px;
     height: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     border-radius: 50px;
     border-top-right-radius:50%;
     box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
@@ -156,13 +159,25 @@ const Posters = styled(Link)`
 `;
 
 const MapSelec = styled.div`
-    padding-top: 50px;
     display: grid;
-    grid-template-columns: 400px 400px 400px 400px;
+    grid-template-columns: 400px 400px ;
     justify-content: center;
     text-align: center;
     align-items: center;
-    gap: 20px;
+    gap: 20px 30px;
+    height: fit-content;
+`;
+
+const MapSelec2 = styled.div`
+    padding-left: 50px;
+    border-left: 1px dotted black;
+    margin-left: 50px;
+    display: grid;
+    grid-template-columns: 400px 400px ;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 20px 30px;
     height: fit-content;
 `;
 

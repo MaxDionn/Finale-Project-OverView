@@ -35,7 +35,23 @@ try{
 }
 }
 
+//--- endpoint to GET a specified actor ---//
+
+const getActorsByIdMovCred = async(req, res)=>{
+    const id = Number(req.params.id)
+    let goodUrl = start_url + `/person/${id}/movie_credits` + API_key;
+try{
+    const actorMovCred = await request(goodUrl)
+    res.status(200).send(actorMovCred)
+
+}catch(err){
+    console.log(err)
+    res.status(400).json({status: 400 , message: err})
+}
+}
+
 module.exports={
     getActors,
     getActorsById,
+    getActorsByIdMovCred,
 }

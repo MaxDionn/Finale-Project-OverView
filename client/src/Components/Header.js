@@ -1,9 +1,11 @@
-import {Link, NavLink} from "react-router-dom"
+import {Link, NavLink, useParams} from "react-router-dom"
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import {GiBodySwapping} from "react-icons/gi";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
+    const {client_id} = useParams()
     return (
         <Head>
             <SearchBar/>
@@ -14,7 +16,8 @@ const Header = () => {
             <StyleLink to={"/moods"}>Moods</StyleLink>
             <StyleLink to={"/providers"}>Providers</StyleLink>
             <StyleLink to={"/about"}>About</StyleLink>
-            <ProfileLink to={"/profile"}>
+            <StyleLink to={"/login"}>Log</StyleLink>
+            <ProfileLink to={`/profile/${client_id}`}>
             <GiBodySwapping size={50}style={{background: "transparent", color:"white"}} />
             </ProfileLink>
         </Head>

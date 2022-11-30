@@ -1,6 +1,5 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import Header from "./Header";
-import Footer from "./Footer";
 import AllMovies from "./Pages/Movies/AllMovies";
 import TvShows from "./Pages/TvShows/TvShows";
 import Actors from "./Pages/Actors/Actors";
@@ -8,7 +7,8 @@ import HomePage from "./Pages/HomePage";
 import Moods from "./Pages/Mood/Moods";
 import Providers from "./Pages/Providers/Providers";
 import About from "./Pages/About";
-import Profile from "./Pages/Profile";
+import Login from "./Pages/Profile/Login";
+import Profile from "./Pages/Profile/Profile";
 import MoviesDetails from "./Pages/Movies/MoviesDetails";
 import TvShowsDetails from "./Pages/TvShows/TvShowsDetails";
 import ProvidersDetails from "./Pages/Providers/ProviderDetails";
@@ -27,14 +27,14 @@ const App = () =>  {
         <Route path="/moods" element={<Moods />}/>
         <Route path="/providers" element={<Providers />}/>
         <Route path="/about" element={<About />}/>
-        <Route path="/profile" element={<Profile />}/>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/profile/:id" element={<Profile />}/>
         <Route path="/movies/:id" element={<MoviesDetails/>}/>
         <Route path="/tvShows/:id" element={<TvShowsDetails/>}/>
         <Route path="/providers/:id" element={<ProvidersDetails />}/>
         <Route path="/actors/:id" element={<ActorsDetails />}/>
         <Route path="/mood/:id" element={<MoodsDetails />}/>
       </Routes>
-      <Footer/>
     </Router>
   );
 }
