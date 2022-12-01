@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import ErrorPage from "../../ErrorPage";
-import { Favorite } from "../../Favorite";
+import { Favorite } from "../../Favorite/Favorite";
 
 const ActorsDetails = () => {
     const {id} = useParams();
@@ -19,7 +19,6 @@ const ActorsDetails = () => {
             }
             else{
                 setStateActorsById(data)
-                console.log(data)
             }    
         })
         .catch(() => {
@@ -37,7 +36,6 @@ const ActorsDetails = () => {
             }
             else{
                 setStateActMovCred(data)
-                console.log(data)
             }    
         })
         .catch(() => {

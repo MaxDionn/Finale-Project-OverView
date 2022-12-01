@@ -14,6 +14,7 @@ import TvShowsDetails from "./Pages/TvShows/TvShowsDetails";
 import ProvidersDetails from "./Pages/Providers/ProviderDetails";
 import ActorsDetails from "./Pages/Actors/ActorsDetails";
 import MoodsDetails from "./Pages/Mood/MoodsDetails";
+import MoodsTvDetails from "./Pages/Mood/MoodsTvDetails";
 
 const App = () =>  {
   return (
@@ -34,6 +35,7 @@ const App = () =>  {
         <Route path="/providers/:id" element={<ProvidersDetails />}/>
         <Route path="/actors/:id" element={<ActorsDetails />}/>
         <Route path="/mood/:id" element={<MoodsDetails />}/>
+        <Route path="/moodTv/:id" element={<MoodsTvDetails />}/>
       </Routes>
     </Router>
   );

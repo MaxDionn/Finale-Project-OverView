@@ -14,7 +14,6 @@ const Moods = () => {
             }
             else{
                 setStateMood(data.genres)
-                console.log(data.genres)
             }
         })
         .catch(() => {
@@ -22,29 +21,74 @@ const Moods = () => {
         })
     },[])
 
+    const [stateTvMood, setStateTvMood] =useState();
+
+    useEffect(() => {
+        fetch("/get-Tvmoods")
+        .then(res => res.json())
+        .then((data) => {
+            if (data.status === 400 || data.statut === 500){
+                return new Error(data.message)
+            }
+            else{
+                setStateTvMood(data.genres)
+            }
+        })
+        .catch(() => {
+            setStateTvMood("error")
+        })
+    },[])
+
     return ( 
         <Home>
-            {!stateMood ? 
+            {!stateMood || !stateTvMood ? 
             <LoadingCube/>
         :
             <div>
-                <div>
-                    <h2>Moods</h2>
-                </div>
-                <MapSelec>
-                {stateMood.map((mood, index) => {
-                    return(
-                        <div key={index}>
-                                <Mood to={`/mood/${mood.id}`}><h4>{mood.name}</h4></Mood>
-                            </div>
-                    )
-                })}
-                </MapSelec>
+                    <Title>
+                        <h2>Movie Genres</h2>
+                        <h2>Tv Shows Genres</h2>
+                    </Title>
+                    <All>
+                        <MapSelec>
+                        {stateMood.map((mood, index) => {
+                            return(
+                                <div key={index}>
+                                        <Mood to={`/mood/${mood.id}`}><h4>{mood.name}</h4></Mood>
+                                    </div>
+                            )
+                        })}
+                        </MapSelec>
+                        <Right>
+                        <MapSelec>
+                        {stateTvMood.map((mood2, index) => {
+                            return(
+                                <div key={index}>
+                                        <Mood to={`/moodTv/${mood2.id}`}><h4>{mood2.name}</h4></Mood>
+                                    </div>
+                            )
+                        })}
+                        </MapSelec>
+                        </Right>
+                    </All>
             </div>
             }
         </Home>
     )
     }
+const Right = styled.div`
+    margin-left: 20%;
+`;
+
+const Title = styled.div`
+display: flex;
+justify-content: space-between;
+margin-left: 20%;
+`;
+
+const All = styled.div`
+display: flex;
+`;
 
 const Home = styled.div`
 margin: 5% 6%;
@@ -60,7 +104,7 @@ h2{
 const MapSelec = styled.div`
     padding-top: 50px;
     display: grid;
-    grid-template-columns: 400px 400px 400px 400px;
+    grid-template-columns: 300px 300px ;
     justify-content: center;
     text-align: center;
     align-items: center;

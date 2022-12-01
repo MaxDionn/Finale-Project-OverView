@@ -8,9 +8,7 @@ const Login = () => {
     const {user, isAuthenticated} = useAuth0();
 
     //--- Send Item to cart ---//
-    const postToCart = (e) => {
-    e.preventDefault();
-
+    const postTomongo = () => {
     fetch(`/add-userInfos`, {
         method: "POST",
         body: JSON.stringify({
@@ -34,7 +32,7 @@ const Login = () => {
         window.alert("Error, please try again.");
     });
     };
-    console.log(user)
+    
     return ( 
         <div>
             <h1>Profile</h1>
@@ -42,7 +40,7 @@ const Login = () => {
             {!error && isLoading && <LoadingCube/>}
             {!error && !isLoading && (
                 <>
-                    <ButtonLogin onClick={postToCart}/>
+                    <ButtonLogin postTomongo={postTomongo}/>
                     <ButtonLogout/>
                     {isAuthenticated && (
                     <UserStyle>

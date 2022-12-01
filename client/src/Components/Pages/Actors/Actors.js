@@ -14,7 +14,6 @@ const Actors = () => {
             }
             else{
                 setStateActors(data.results)
-                console.log(data.results)
             }
         })
         .catch(() => {

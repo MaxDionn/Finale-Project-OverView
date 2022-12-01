@@ -16,7 +16,6 @@ try{
     res.status(200).send(providers)
 
 }catch(err){
-    console.log(err)
     res.status(400).json({status: 400 , message: err})
 }
 }
@@ -24,13 +23,13 @@ try{
 //--- endpoint to GET a provider by Id ---//
 
 const getProvidersById = async(req, res)=>{
-    let providerById = start_url + `/providers/tv` + API_key;
+    const id = Number(req.params.id)
+    let providerById = start_url + `/network/${id}` + API_key;
 try{
     const providerId = await request(providerById)
     res.status(200).send(providerId)
 
 }catch(err){
-    console.log(err)
     res.status(400).json({status: 400 , message: err})
 }
 }

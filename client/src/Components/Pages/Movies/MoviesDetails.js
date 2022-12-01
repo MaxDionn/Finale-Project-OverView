@@ -2,12 +2,40 @@ import {useEffect, useState} from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import ErrorPage from "../../ErrorPage";
-import { Favorite } from "../../Favorite";
+import { Favorite } from "../../Favorite/Favorite";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const MoviesDetails = () => {
     const {id} = useParams()
     const [stateMovie, setStateMovie] =useState();
     let backdrop_url = "https://image.tmdb.org/t/p/w500";
+    const {user} = useAuth0();
+
+        const AddFavoriteMovie = (movieId) => {
+    
+        fetch(`/add-favorite/${user.name}`, {
+            method: "POST",
+            body: JSON.stringify({
+            id: movieId
+            }),
+            headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+            if (data.status === 200) {
+                window.alert("Added To db!");
+                window.location.reload();
+            } else {
+                window.alert("Unable To Add To the db");
+            }
+        })
+            .catch(() => {
+            window.alert("Error, please try again.");
+        });
+        };
 
     useEffect(() => {
         fetch(`/get-movieById/${id}`)
@@ -18,7 +46,6 @@ const MoviesDetails = () => {
             }
             else{
                 setStateMovie(data)
-                console.log(data)
             }
         })
         .catch(() => {
@@ -37,7 +64,6 @@ const MoviesDetails = () => {
             }
             else{
                 setStateCredits(data)
-                console.log(data)
             }
         })
         .catch(() => {
@@ -56,7 +82,6 @@ const MoviesDetails = () => {
             }
             else{
                 setStateSimilar(data.results)
-                console.log(data.results)
             }
         })
         .catch(() => {
@@ -77,8 +102,8 @@ const MoviesDetails = () => {
                 <Left>
                 <Poster>
                     <div>
-                    <img src={backdrop_url+stateMovie.backdrop_path}/>
-                    <Favorite/>
+                    <img src={backdrop_url+stateMovie?.backdrop_path}/>
+                    <Favorite movieId={stateMovie.id} AddFavoriteMovie={AddFavoriteMovie}/>
                     </div>
                     <Detail>
                         <h2>{stateMovie.title}</h2>
@@ -103,7 +128,7 @@ const MoviesDetails = () => {
                         let backdrop_url = "https://image.tmdb.org/t/p/w500";
                         return (
                             <Casting key={index2} to={`/actors/${cast.id}`}>
-                                <img src={backdrop_url+cast.profile_path}/>
+                                <img src={backdrop_url+cast?.profile_path}/>
                                 <div>
                                     <h3>{cast.name}</h3>
                                     <p>{cast.character}</p>
@@ -121,7 +146,7 @@ const MoviesDetails = () => {
                         let backdrop_url = "https://image.tmdb.org/t/p/w500";
                         return (
                             <Casting key={index3} to={`/movies/${similar.id}`}>
-                                <img src={backdrop_url+similar.poster_path}/>
+                                <img src={backdrop_url+similar?.poster_path}/>
                                 <div>
                                     <h3>{similar.title}</h3>
                                     <p><span>{Math.floor(similar.vote_average)}/10</span></p>

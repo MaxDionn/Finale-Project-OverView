@@ -17,7 +17,6 @@ const HomePage = () => {
             }
             else{
                 setState(data.results)
-                console.log(data.results)
             }
         })
         .catch(() => {
@@ -36,7 +35,6 @@ const HomePage = () => {
             }
             else{
                 setStateTv(data.results)
-                console.log(data.results)
             }
         })
         .catch(() => {

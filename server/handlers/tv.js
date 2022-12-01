@@ -13,11 +13,35 @@ const getTvPopular = async(req, res)=>{
     let goodUrl = start_url + "/tv/popular" + API_key;
 try{
     const popular = await request(goodUrl)
-//  const popular = JSON.parse(data)
     res.status(200).send(popular)
 
 }catch(err){
-    console.log(err)
+    res.status(400).json({status: 400 , message: err})
+}
+}
+
+//--- endpoint to GET topRated Tv Shows ---//
+
+const getTvTopRated = async(req, res)=>{
+    let goodUrl = start_url + "/tv/top_rated" + API_key;
+try{
+    const topRated = await request(goodUrl)
+    res.status(200).send(topRated)
+
+}catch(err){
+    res.status(400).json({status: 400 , message: err})
+}
+}
+
+//--- endpoint to GET Latest Tv Shows ---//
+
+const getTvLatest = async(req, res)=>{
+    let goodUrl = start_url + "/tv/latest" + API_key;
+try{
+    const latest = await request(goodUrl)
+    res.status(200).send(latest)
+
+}catch(err){
     res.status(400).json({status: 400 , message: err})
 }
 }
@@ -33,7 +57,6 @@ const getTvById = async(req, res)=>{
         res.status(200).send(tvId)
     
     }catch(err){
-        console.log(err)
         res.status(400).json({status: 400 , message: err})
     }
     }
@@ -44,4 +67,6 @@ const getTvById = async(req, res)=>{
 module.exports={
     getTvPopular,
     getTvById,
+    getTvTopRated,
+    getTvLatest,
 }

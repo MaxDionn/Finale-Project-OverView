@@ -15,7 +15,6 @@ const Providers = () => {
             }
             else{
                 setStateProviders(data.results)
-                console.log(data.results)
             }
         })
         .catch(() => {

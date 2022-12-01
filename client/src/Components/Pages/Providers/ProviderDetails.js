@@ -7,7 +7,7 @@ const ProvidersDetails = () => {
     const [stateProviders, setStateStudiosProviders] =useState();
 
     useEffect(() => {
-        fetch(`/get-providers`)
+        fetch(`/get-network/${id}`)
         .then(res => res.json())
         .then((data) => {
             if (data.status === 400 || data.statut === 500){
@@ -15,7 +15,6 @@ const ProvidersDetails = () => {
             }
             else{
                 setStateStudiosProviders(data)
-                console.log(data)
             }
         })
         .catch(() => {
@@ -24,31 +23,15 @@ const ProvidersDetails = () => {
     },[])
     
     return (
-        <h1>providersDetails</h1>
-        /*
         <Home>
             {!stateProviders ? 
                 <LoadingCube/>
                 :
                     <div>
-                        <div>
-                            <h2>Providers</h2>
-                        </div>
-                        <MapSelec>
-                        {stateProviders.map((provider, index) => {
-                            let backdrop_url = "https://image.tmdb.org/t/p/w300";
-                            return(
-                                <Posters key={index}>
-                                    <img src={backdrop_url+provider.logo_path}/>
-                                    <h3>{provider.provider_name}</h3>
-                                </Posters>
-                                )
-                            })}
-                        </MapSelec>
+                        <h1>provider details</h1>
                     </div>
             }
         </Home>
-        */
 )
 }
 

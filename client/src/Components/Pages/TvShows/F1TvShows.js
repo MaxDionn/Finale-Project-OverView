@@ -12,7 +12,6 @@ export const F1TvShows = () => {
             }
             else{
                 setStateMovieF1Tv(data)
-                console.log(data)
             }
         })
         .catch(() => {

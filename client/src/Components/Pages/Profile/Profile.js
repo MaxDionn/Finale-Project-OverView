@@ -7,8 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Profile = () => {
     const [stateProfile, setStateProfile] = useState()
     const [stateUser, setStateUser] = useState()
-    const {client_id} = useParams();
-    console.log("FE",client_id)
+    const {id} = useParams();
     
 
     //const {user} = useAuth0()
@@ -34,7 +33,7 @@ const Profile = () => {
 
     useEffect(() => {
         
-        fetch(`/get-user/${client_id}`)
+        fetch(`/get-user/${id}`)
         .then(res => res.json())
         .then((data) => {
             if(data.status===400||data.status===500) {
@@ -42,7 +41,6 @@ const Profile = () => {
             }
             else{
                 setStateProfile(data)
-                console.log("FE2",data.client_id)
             }
         })
         .catch((err) => {

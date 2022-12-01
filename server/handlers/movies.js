@@ -12,11 +12,35 @@ const getMoviePopular = async(req, res)=>{
     let goodUrl = start_url + "/movie/popular" + API_key;
 try{
     const popular = await request(goodUrl)
-//  const popular = JSON.parse(data)
     res.status(200).send(popular)
 
 }catch(err){
-    console.log(err)
+    res.status(400).json({status: 400 , message: err})
+}
+}
+
+//--- endpoint to GET top-Rated movies ---//
+
+const getMovieTopRated = async(req, res)=>{
+    let goodUrl = start_url + "/movie/top_rated" + API_key;
+try{
+    const topRated = await request(goodUrl)
+    res.status(200).send(topRated)
+
+}catch(err){
+    res.status(400).json({status: 400 , message: err})
+}
+}
+
+//--- endpoint to GET Latest movies ---//
+
+const getMovielatest = async(req, res)=>{
+    let goodUrl = start_url + "/movie/latest" + API_key;
+try{
+    const latest = await request(goodUrl)
+    res.status(200).send(latest)
+
+}catch(err){
     res.status(400).json({status: 400 , message: err})
 }
 }
@@ -31,7 +55,6 @@ const getMovieById = async(req, res)=>{
         res.status(200).send(movieId)
     
     }catch(err){
-        console.log(err)
         res.status(400).json({status: 400 , message: err})
     }
     }
@@ -46,7 +69,6 @@ try{
     res.status(200).send(movieCreditId)
 
 }catch(err){
-    console.log(err)
     res.status(400).json({status: 400 , message: err})
 }
 }
@@ -61,7 +83,6 @@ try{
         res.status(200).send(movieId)
     
     }catch(err){
-        console.log(err)
         res.status(400).json({status: 400 , message: err})
     }
     }
@@ -73,4 +94,6 @@ module.exports={
     getMovieById,
     getCreditMovieById,
     getSimilarMovieById,
+    getMovieTopRated,
+    getMovielatest,
 }

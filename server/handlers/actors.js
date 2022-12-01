@@ -15,7 +15,6 @@ try{
     res.status(200).send(popular)
 
 }catch(err){
-    console.log(err)
     res.status(400).json({status: 400 , message: err})
 }
 }
@@ -30,7 +29,6 @@ try{
     res.status(200).send(actorById)
 
 }catch(err){
-    console.log(err)
     res.status(400).json({status: 400 , message: err})
 }
 }
@@ -45,7 +43,6 @@ try{
     res.status(200).send(actorMovCred)
 
 }catch(err){
-    console.log(err)
     res.status(400).json({status: 400 , message: err})
 }
 }

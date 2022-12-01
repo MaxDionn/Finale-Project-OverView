@@ -15,7 +15,6 @@ const TvShowsDetails = () => {
             }
             else{
                 setStateTv(data)
-                console.log(data)
             }
         })
         .catch(() => {

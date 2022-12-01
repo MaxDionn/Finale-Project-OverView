@@ -5,7 +5,8 @@ import {GiBodySwapping} from "react-icons/gi";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
-    const {client_id} = useParams()
+    //const {id} = useParams()
+    const {user} = useAuth0()
     return (
         <Head>
             <SearchBar/>
@@ -17,7 +18,7 @@ const Header = () => {
             <StyleLink to={"/providers"}>Providers</StyleLink>
             <StyleLink to={"/about"}>About</StyleLink>
             <StyleLink to={"/login"}>Log</StyleLink>
-            <ProfileLink to={`/profile/${client_id}`}>
+            <ProfileLink to={`/profile/${user?.name}`}>
             <GiBodySwapping size={50}style={{background: "transparent", color:"white"}} />
             </ProfileLink>
         </Head>
