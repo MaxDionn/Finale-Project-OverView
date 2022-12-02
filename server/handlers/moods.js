@@ -35,22 +35,7 @@ try{
 }
 }
 
-//--- endpoint to GET the mood by Id  ---//
-
-const getMoodsById = async(req, res)=>{
-    const {id} = req.params.id;
-    let goodUrl = start_url + `/genre/${id}` + API_key;
-try{
-    const moodById = await request(goodUrl)
-    res.status(200).send(moodById)
-
-}catch(err){
-    res.status(400).json({status: 400 , message: err})
-}
-}
-
 module.exports={
     getMoods,
-    getMoodsById,
     getTvMoods,
 }

@@ -8,7 +8,7 @@ const MoodsTvDetails = () => {
 
     const [stateTv, setStateTv] =useState();
 
-    useEffect(() => {
+useEffect(() => {
         fetch("/get-tv-popular")
         .then(res => res.json())
         .then((data) => {
@@ -26,7 +26,7 @@ const MoodsTvDetails = () => {
 
     const [stateRated, setStateRated] =useState();
 
-    useEffect(() => {
+useEffect(() => {
         fetch("/get-tv-topRated")
         .then(res => res.json())
         .then((data) => {
@@ -150,6 +150,7 @@ margin-left: 20%;
 const Title = styled.div`
 display: flex;
 justify-content: space-evenly;
+width: 400px;
 `;
 
 const All = styled.div`

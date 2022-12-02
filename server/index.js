@@ -8,8 +8,13 @@ const {
     addUserInfo,
     getUserById,
     getUser,
-    addFavById,
     getMovFav,
+    addFavById,
+    addActorFavById,
+    addTvShowFavById,
+    deleteFavById,
+    deleteActorFavById,
+    deleteTvShowFavById,
 } = require("./handlers/users");
 
 //-- all endpoints for actors -- //
@@ -19,14 +24,9 @@ const {
         getActorsByIdMovCred,
     } = require("./handlers/actors");
 
-//-- all endpoints for different collections of movies -- //
-    const {
-    } = require("./handlers/collections");
-
 //-- all endpoints for different kind of genres -- //
     const {
         getMoods,
-        getMoodsById,
         getTvMoods,
     } = require("./handlers/moods");
 
@@ -52,7 +52,14 @@ const {
         getTvById,
         getTvLatest,
         getTvTopRated,
+        getTvCreditById,
+        getSimilarTvById,
     } = require("./handlers/tv");
+
+//-- endpoint for SearchBar--//
+    const {
+        getSearch,
+    }=require("./handlers/searchBar")
 
 express()
 
@@ -69,8 +76,13 @@ express()
     .post("/add-userInfos", addUserInfo)
     .get("/get-user/:id", getUserById)
     .get("/get-user", getUser)
-    .post("/add-favorite/:id", addFavById)
     .get("/get-movfav/:id", getMovFav)
+    .post("/add-favorite/:id", addFavById)
+    .post("/add-actorFavorite/:id", addActorFavById)
+    .post("/add-tvShowFavorite/:id", addTvShowFavById)
+    .delete("/delete-favorite/:id", deleteFavById)
+    .delete("/delete-actorFavorite/:id", deleteActorFavById)
+    .delete("/delete-tvShowFavorite/:id", deleteTvShowFavById)
 
     //-- all REST for actors -- //
     .get("/get-actors" , getActors)
@@ -93,11 +105,16 @@ express()
     .get("/get-providers", getProviders)
     .get("/get-network/:id", getProvidersById)
     
-    //-- all REST for tv shows -- //
+    //-- all REST for tv-shows -- //
     .get("/get-tv-popular" , getTvPopular)
     .get("/get-tv-topRated" , getTvTopRated)
     .get("/get-tv-latest" , getTvLatest)
     .get("/get-tvById/:id", getTvById)
+    .get("/get-tvById/:id/aggregate_credits", getTvCreditById)
+    .get("/get-tvById/:id/similar", getSimilarTvById)
+
+    //-- REST for searchBar --//
+    .get("/get-searchBar", getSearch)
 
     .listen(port, () => {
         console.log(`Example app listening on port ${port}`)

@@ -6,13 +6,16 @@ import { Favorite } from "../../Favorite/Favorite";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const MoviesDetails = () => {
-    const {id} = useParams()
-    const [stateMovie, setStateMovie] =useState();
-    let backdrop_url = "https://image.tmdb.org/t/p/w500";
-    const {user} = useAuth0();
 
-        const AddFavoriteMovie = (movieId) => {
-    
+    let backdrop_url = "https://image.tmdb.org/t/p/w500";
+    const {id} = useParams()
+    const {user} = useAuth0();
+    const [stateMovie, setStateMovie] =useState();
+    const [stateCredits, setStateCredits] =useState();
+    const [stateSimilar, setStateSimilar] =useState();
+
+//--add movie to favorite by Id--//
+const AddFavoriteMovie = (movieId) => {
         fetch(`/add-favorite/${user.name}`, {
             method: "POST",
             body: JSON.stringify({
@@ -26,8 +29,7 @@ const MoviesDetails = () => {
             .then((res) => res.json())
             .then((data) => {
             if (data.status === 200) {
-                window.alert("Added To db!");
-                window.location.reload();
+                window.alert("Added To Favorite!");
             } else {
                 window.alert("Unable To Add To the db");
             }
@@ -35,9 +37,35 @@ const MoviesDetails = () => {
             .catch(() => {
             window.alert("Error, please try again.");
         });
-        };
+    };
 
-    useEffect(() => {
+//--delete movie of favorite by Id--//
+const DeleteFavoriteMovie = (movieId) => {
+        fetch(`/delete-favorite/${user.name}`, {
+            method: "DELETE",
+            body: JSON.stringify({
+            id: movieId
+            }),
+            headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+            if (data.status === 200) {
+                window.alert("Delete From Favorite!");
+            } else {
+                window.alert("Unable To delete To the db");
+            }
+        })
+            .catch(() => {
+            window.alert("Error, please try again.");
+        });
+    };
+
+//--get movie by Id--//
+useEffect(() => {
         fetch(`/get-movieById/${id}`)
         .then(res => res.json())
         .then((data) => {
@@ -51,11 +79,9 @@ const MoviesDetails = () => {
         .catch(() => {
             setStateMovie("error")
         })
-    },[id])
 
-    const [stateCredits, setStateCredits] =useState();
-
-    useEffect(() => {
+//--get credits of movie by Id --//
+    
         fetch(`/get-movieById/${id}/credits`)
         .then(res => res.json())
         .then((data) => {
@@ -69,11 +95,9 @@ const MoviesDetails = () => {
         .catch(() => {
             setStateCredits("error")
         })
-    },[id])
 
-    const [stateSimilar, setStateSimilar] =useState();
-
-    useEffect(() => {
+//--get similar movie by Id--//
+    
         fetch(`/get-movieById/${id}/similar`)
         .then(res => res.json())
         .then((data) => {
@@ -89,7 +113,7 @@ const MoviesDetails = () => {
         })
     },[id])
 
-    if (stateCredits  === "error") {
+    if (stateMovie === "error") {
         return <ErrorPage/>
     }else{
 
@@ -103,7 +127,7 @@ const MoviesDetails = () => {
                 <Poster>
                     <div>
                     <img src={backdrop_url+stateMovie?.backdrop_path}/>
-                    <Favorite movieId={stateMovie.id} AddFavoriteMovie={AddFavoriteMovie}/>
+                    <Favorite movieId={stateMovie.id} AddFavoriteMovie={AddFavoriteMovie} DeleteFavoriteMovie={DeleteFavoriteMovie}/>
                     </div>
                     <Detail>
                         <h2>{stateMovie.title}</h2>
@@ -131,7 +155,7 @@ const MoviesDetails = () => {
                                 <img src={backdrop_url+cast?.profile_path}/>
                                 <div>
                                     <h3>{cast.name}</h3>
-                                    <p>{cast.character}</p>
+                                    <p>Played as: {cast.character}</p>
                                 </div>
                             </Casting>
                         )
@@ -149,7 +173,7 @@ const MoviesDetails = () => {
                                 <img src={backdrop_url+similar?.poster_path}/>
                                 <div>
                                     <h3>{similar.title}</h3>
-                                    <p><span>{Math.floor(similar.vote_average)}/10</span></p>
+                                    <p>Rate : <span>{Math.floor(similar.vote_average)}/10</span></p>
                                 </div>
                             </Casting>
                         )

@@ -2,37 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
+import ProfileMovie from "./ProfileMovie"
 
 
 const Profile = () => {
+    /*
     const [stateProfile, setStateProfile] = useState()
-    const [stateUser, setStateUser] = useState()
     const {id} = useParams();
-    
-
-    //const {user} = useAuth0()
-/*
-    useEffect(() => {
-        
-        fetch("/get-user")
-        .then(res => res.json())
-        .then((data) => {
-            if(data.status===400||data.status===500) {
-                return new Error(data.message)
-            }
-            else{
-                setStateUser(data)
-                console.log("testuser" , data)
-            }
-        })
-        .catch((err) => {
-            window.alert(err)
-        })
-    },[])
-*/
 
     useEffect(() => {
-        
         fetch(`/get-user/${id}`)
         .then(res => res.json())
         .then((data) => {
@@ -40,24 +18,20 @@ const Profile = () => {
                 return new Error(data.message)
             }
             else{
-                setStateProfile(data)
+                setStateProfile(data.data)
+                console.log(data.data)
             }
         })
         .catch((err) => {
             window.alert(err)
         })
     },[])
-
+*/
         return (
-            <Home>
-            {!stateProfile  ? 
-            <LoadingCube/>
-            :
             <>
                 <h1>Profile</h1>
+                <ProfileMovie/>
             </>
-            }
-            </Home>
         )
 }
 

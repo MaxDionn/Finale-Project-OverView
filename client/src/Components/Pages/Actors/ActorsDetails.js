@@ -2,46 +2,98 @@ import {useEffect, useState} from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import ErrorPage from "../../ErrorPage";
-import { Favorite } from "../../Favorite/Favorite";
+import { FavoriteActor } from "../../Favorite/FavoriteActor";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ActorsDetails = () => {
-    const {id} = useParams();
     const [stateActorsById, setStateActorsById] = useState();
-    let backdrop_url = "https://image.tmdb.org/t/p/w500";
-
-    useEffect(() => {
-
-        fetch(`/get-actorById/${id}`)
-        .then(res => res.json())
-        .then((data) => {
-            if(data.status===400||data.status===500){
-                return new Error(data.message)
-            }
-            else{
-                setStateActorsById(data)
-            }    
-        })
-        .catch(() => {
-            setStateActorsById("error")
-        })
-    },[id])
     const [stateActMovCred, setStateActMovCred] = useState();
-    useEffect(() => {
+    const {id} = useParams();
+    let backdrop_url = "https://image.tmdb.org/t/p/w500";
+    const {user} = useAuth0();
 
-        fetch(`/get-actorById/${id}/movie_credits`)
-        .then(res => res.json())
+//--add actor to favorite by Id--//
+const AddFavoriteActor = (actorId) => {
+    fetch(`/add-actorFavorite/${user.name}`, {
+        method: "POST",
+        body: JSON.stringify({
+        id: actorId
+        }),
+        headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        },
+    })
+        .then((res) => res.json())
         .then((data) => {
-            if(data.status===400||data.status===500){
-                return new Error(data.message)
-            }
-            else{
-                setStateActMovCred(data)
-            }    
-        })
+        if (data.status === 200) {
+            window.alert("Added To Favorite!");
+        } else {
+            window.alert("Unable To Add To the db");
+        }
+    })
         .catch(() => {
-            setStateActMovCred("error")
-        })
-    },[id])
+        window.alert("Error, please try again.");
+    });
+    };
+
+//--delete actor of favorite by Id--//
+const DeleteFavoriteActor = (actorId) => {
+    
+    fetch(`/delete-actorFavorite/${user.name}`, {
+        method: "DELETE",
+        body: JSON.stringify({
+        id: actorId
+        }),
+        headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        },
+    })
+        .then((res) => res.json())
+        .then((data) => {
+        if (data.status === 200) {
+            window.alert("Delete From Favorite!");
+        } else {
+            window.alert("Unable To delete To the db");
+        }
+    })
+        .catch(() => {
+        window.alert("Error, please try again.");
+    });
+    };
+
+//--get actor by Id--//
+useEffect(() => {
+//-- get actor by id --//
+    fetch(`/get-actorById/${id}`)
+    .then(res => res.json())
+    .then((data) => {
+        if(data.status===400||data.status===500){
+            return new Error(data.message)
+        }
+        else{
+        setStateActorsById(data)
+        }    
+    })
+    .catch(() => {
+        setStateActorsById("error")
+    })
+//-- get credit for actor--//
+    fetch(`/get-actorById/${id}/movie_credits`)
+    .then(res => res.json())
+    .then((data) => {
+        if(data.status===400||data.status===500){
+            return new Error(data.message)
+        }
+        else{
+        setStateActMovCred(data)
+        }    
+    })
+    .catch(() => {
+        setStateActMovCred("error")
+    })
+},[id])
 
     if (stateActMovCred  === "error") {
         return <ErrorPage/>
@@ -55,8 +107,8 @@ const ActorsDetails = () => {
             <div>
             <Poster>
                 <div>
-                    <img src={backdrop_url+stateActorsById.profile_path}/>
-                    <Favorite/>
+                    <img src={backdrop_url+stateActorsById?.profile_path}/>
+                    <FavoriteActor actorId={stateActorsById.id} AddFavoriteActor={AddFavoriteActor} DeleteFavoriteActor={DeleteFavoriteActor}/>
                 </div>
                 <Detail>
                     <h2>{stateActorsById.name}</h2>
@@ -76,7 +128,7 @@ const ActorsDetails = () => {
                 {stateActMovCred.cast.map((castItem, index) => {
                     return (
                         <Casting key={index} to={`/movies/${castItem.id}`}>
-                            <img src={backdrop_url+castItem.poster_path} />
+                            <img src={backdrop_url+castItem?.poster_path} />
                             <div>
                                 <h3>{castItem.title}</h3>
                                 <p>Character - {castItem.character}</p>
@@ -91,7 +143,7 @@ const ActorsDetails = () => {
                 {stateActMovCred.crew.map((crewItem, index2) => {
                     return (
                         <Casting key={index2} to={`/movies/${crewItem.id}`}>
-                            <img src={backdrop_url+crewItem.poster_path} />
+                            <img src={backdrop_url+crewItem?.poster_path} />
                             <div>
                                 <h3>{crewItem.title}</h3>
                                 <p>Job - {crewItem.job}</p>

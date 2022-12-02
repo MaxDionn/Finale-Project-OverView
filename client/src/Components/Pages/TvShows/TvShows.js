@@ -1,9 +1,7 @@
-import F1TvShows from "./F1TvShows";
 
-const TvShows = ({stateF1Tv}) => {
+const TvShows = () => {
     return ( 
         <div>
-            <p>{stateF1Tv}</p>
             <h1>tv shows</h1>
         </div>
     )

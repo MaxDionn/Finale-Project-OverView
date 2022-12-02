@@ -1,63 +1,66 @@
 import {useEffect, useState} from "react";
 import styled from "styled-components";
 import {Link, useParams} from "react-router-dom";
+import ErrorPage from "../../ErrorPage";
 
 const MoodsDetails = () => {
-    let backdrop_url = "https://image.tmdb.org/t/p/w500";
     const [state, setState] =useState();
+    const [stateTop, setStateTop] =useState();
+    const [stateLatest, setStateLatest] =useState();
+    let backdrop_url = "https://image.tmdb.org/t/p/w500";
     const {id} = useParams()
 
-    useEffect(() => {
-        fetch("/get-movie-popular")
-        .then(res => res.json())
-        .then((data) => {
-            if (data.status === 400 || data.statut === 500){
-                return new Error(data.message)
-            }
-            else{
-                setState(data.results)
-            }
-        })
-        .catch(() => {
-            setState("error")
-        })
-    },[])
+//--get popular movie--//
+useEffect(() => {
+    fetch("/get-movie-popular")
+    .then(res => res.json())
+    .then((data) => {
+    if (data.status === 400 || data.statut === 500){
+        return new Error(data.message)
+        }
+        else{
+        setState(data.results)
+        }
+    })
+    .catch(() => {
+        setState("error")
+    })
 
-    const [stateTop, setStateTop] =useState();
+//--get top-rated movie--//
+    fetch("/get-movie-topRated")
+    .then(res => res.json())
+    .then((data) => {
+        if (data.status === 400 || data.statut === 500){
+            return new Error(data.message)
+        }
+        else{
+        setStateTop(data.results)
+        }
+    })
+    .catch(() => {
+        setStateTop("error")
+    })
 
-    useEffect(() => {
-        fetch("/get-movie-topRated")
-        .then(res => res.json())
-        .then((data) => {
-            if (data.status === 400 || data.statut === 500){
-                return new Error(data.message)
-            }
-            else{
-                setStateTop(data.results)
-            }
-        })
-        .catch(() => {
-            setStateTop("error")
-        })
-    },[])
+//--get latest movie--//
+    fetch("/get-movie-latest")
+    .then(res => res.json())
+    .then((data) => {
+        if (data.status === 400 || data.statut === 500){
+            return new Error(data.message)
+        }
+        else{
+        setStateLatest(data)
+            console.log(data)
+        }
+    })
+    .catch(() => {
+        setStateLatest("error")
+    })
+},[])
 
-    const [stateLatest, setStateLatest] =useState();
-
-    useEffect(() => {
-        fetch("/get-movie-topRated")
-        .then(res => res.json())
-        .then((data) => {
-            if (data.status === 400 || data.statut === 500){
-                return new Error(data.message)
-            }
-            else{
-                setStateLatest(data.results)
-            }
-        })
-        .catch(() => {
-            setStateLatest("error")
-        })
-    },[])
+if (state === "error") {
+    return <ErrorPage/>
+}else{
 
 return (
     <Home>
@@ -116,16 +119,15 @@ return (
                     <Title>
                     <h2>Latest Movies</h2>
                     </Title>
-                        {stateLatest.map((item3, index3) => {
-                            return item3.genre_ids.map((genre) => {
+                        {stateLatest.genres.map((genre, index3) => {
                                 if(id == genre){
                                     return (
-                                    <Casting key={index3} to={`/movies/${item3.id}`}>
-                                        <img src={backdrop_url+item3?.poster_path}/>
+                                    <Casting key={index3} to={`/movies/${stateLatest.id}`}>
+                                        <img src={backdrop_url+stateLatest?.poster_path}/>
                                         <div>
-                                            <h3>{item3.title}</h3>
-                                            <p>{item3.release_date}</p>
-                                            <p><span>{Math.floor(item3.vote_average)}/10</span></p>
+                                            <h3>{stateLatest.title}</h3>
+                                            <p>{stateLatest.release_date}</p>
+                                            <p><span>{Math.floor(stateLatest.vote_average)}/10</span></p>
                                         </div>
                                     </Casting>
                                     )
@@ -133,13 +135,14 @@ return (
                                     return <div>{""}</div>
                                 }
                             })
-                        })}
+                        }
                     </Right>
                 </All>
             </div>
-}
-</Home>
-)
+            }
+        </Home>
+        )
+    }
 }
 
 const Right = styled.div`
@@ -149,6 +152,7 @@ margin-left: 20%;
 const Title = styled.div`
 display: flex;
 justify-content: space-evenly;
+width: 400px;
 `;
 
 const All = styled.div`

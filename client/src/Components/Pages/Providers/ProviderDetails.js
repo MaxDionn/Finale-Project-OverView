@@ -1,38 +1,55 @@
 import {useEffect, useState} from "react";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import {Link, useParams} from "react-router-dom";
 
 const ProvidersDetails = () => {
     const {id} = useParams()
-    const [stateProviders, setStateStudiosProviders] =useState();
-
+    const [stateProviders, setStateProviders] =useState();
     useEffect(() => {
-        fetch(`/get-network/${id}`)
+        fetch("/get-providers")
         .then(res => res.json())
         .then((data) => {
             if (data.status === 400 || data.statut === 500){
                 return new Error(data.message)
             }
             else{
-                setStateStudiosProviders(data)
+                setStateProviders(data.results)
+                console.log(data.results)
             }
         })
         .catch(() => {
-            setStateStudiosProviders("error")
+            setStateProviders("error")
         })
     },[])
     
-    return (
+    return ( 
         <Home>
             {!stateProviders ? 
                 <LoadingCube/>
                 :
                     <div>
-                        <h1>provider details</h1>
+                        <div>
+                            <h2>Provider</h2>
+                        </div>
+                        <div>
+                        {stateProviders.map((provider, index) => {
+                            let backdrop_url = "https://image.tmdb.org/t/p/w300";
+                            if(id == provider.provider_id){
+                            return(
+                                <Posters key={index}>
+                                    <img src={backdrop_url+provider?.logo_path}/>
+                                    <h3>{provider.provider_name}</h3>
+                                </Posters>
+                                )
+                            }else{
+                                return <div>{""}</div>
+                            }
+                            })}
+                        </div>
                     </div>
             }
         </Home>
-)
+    )
 }
 
 const Home = styled.div`
@@ -43,6 +60,7 @@ font-family: 'Indie Flower', cursive;
 h2{
     font-size: 40px;
     border-bottom: 2px solid black;
+    width: fit-content;
 }
 `;
 
@@ -76,17 +94,6 @@ const Posters = styled.div`
         margin-left: 10px;
         border-bottom: 1px solid black;
     }
-`;
-
-const MapSelec = styled.div`
-    padding-top: 50px;
-    display: grid;
-    grid-template-columns: 300px 300px 300px 300px 300px;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    gap: 20px;
-    height: fit-content;
 `;
 
 const LoadingCube = styled.div`

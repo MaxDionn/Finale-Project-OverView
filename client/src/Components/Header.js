@@ -9,7 +9,6 @@ const Header = () => {
     const {user} = useAuth0()
     return (
         <Head>
-            <SearchBar/>
             <StyleLink to={"/movies"}>Movies</StyleLink>
             <StyleLink to={"/tvShows"}>Tv Shows</StyleLink>
             <StyleLink to={"/actors"}>Actors</StyleLink>

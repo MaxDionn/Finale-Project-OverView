@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from "react-router-dom";
 
-export const Favorite = ({movieId, AddFavoriteMovie, DeleteFavoriteMovie}) => {
+export const FavoriteTvShow = ({tvShowId, AddFavoriteTvShow, DeleteFavoriteTvShow}) => {
     const {id} = useParams()
     const [color, setColor] = useState();
     const [isClicked, setIsClicked] = useState();
@@ -21,7 +21,7 @@ export const Favorite = ({movieId, AddFavoriteMovie, DeleteFavoriteMovie}) => {
             }
             else{
                 setState(data)
-                if(data.data.movieId.includes(movieId)){
+                if(data.data.tvShowId.includes(tvShowId)){
                     setColor("red")
                 }
                 else{
@@ -32,18 +32,18 @@ export const Favorite = ({movieId, AddFavoriteMovie, DeleteFavoriteMovie}) => {
         .catch(() => {
             setState("error")
         })}
-    },[color, isAuthenticated, movieId])
+    },[color, isAuthenticated, tvShowId])
 
     const handleClick = () => {
         setIsClicked(!isClicked);
         
         if(!isClicked) {
             setColor("red")
-            AddFavoriteMovie(movieId)
+            AddFavoriteTvShow(tvShowId)
         }else
         {
             setColor("black")
-            DeleteFavoriteMovie(movieId)
+            DeleteFavoriteTvShow(tvShowId)
         }
     }
 

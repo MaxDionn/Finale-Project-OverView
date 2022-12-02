@@ -15,11 +15,14 @@ import ProvidersDetails from "./Pages/Providers/ProviderDetails";
 import ActorsDetails from "./Pages/Actors/ActorsDetails";
 import MoodsDetails from "./Pages/Mood/MoodsDetails";
 import MoodsTvDetails from "./Pages/Mood/MoodsTvDetails";
+import SearchBar from "./SearchBar";
+import SearchBar2 from "./SearchBar2";
 
 const App = () =>  {
   return (
     <Router>
       <Header/>
+      <SearchBar/>
       <Routes>
         <Route path="/movies" element={<AllMovies />}/>
         <Route path="/tvShows" element={<TvShows />}/>

@@ -61,7 +61,34 @@ const getTvById = async(req, res)=>{
     }
     }
 
-//--- endpoint to GET one specified movie ---//
+//--- endpoint to GET the credits of a TvShows by Id ---//
+
+const getTvCreditById = async(req, res)=>{
+    const id = Number(req.params.id)
+    let tvCreditById = start_url + `/tv/${id}/aggregate_credits` + API_key;
+try{
+    const tvCreditId = await request(tvCreditById)
+    res.status(200).send(tvCreditId)
+
+}catch(err){
+    res.status(400).json({status: 400 , message: err})
+}
+}
+
+    //--- endpoint to GET similar tvShows by Id ---//
+
+    const getSimilarTvById = async(req, res)=>{
+        const id = Number(req.params.id)
+        let tvById = start_url + `/tv/${id}/similar` + API_key;
+    try{
+        const tvId = await request(tvById)
+        res.status(200).send(tvId)
+    
+    }catch(err){
+        res.status(400).json({status: 400 , message: err})
+    }
+    }
+
 
 
 module.exports={
@@ -69,4 +96,6 @@ module.exports={
     getTvById,
     getTvTopRated,
     getTvLatest,
+    getTvCreditById,
+    getSimilarTvById,
 }
