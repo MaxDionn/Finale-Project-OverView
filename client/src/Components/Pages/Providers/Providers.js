@@ -32,10 +32,10 @@ const Providers = () => {
                             <h2>Providers</h2>
                         </div>
                         <MapSelec>
-                        {stateProviders.map((provider, index) => {
+                        {stateProviders.map((provider) => {
                             let backdrop_url = "https://image.tmdb.org/t/p/w300";
                             return(
-                                <Posters key={index} to={`/providers/${provider.provider_id}`}>
+                                <Posters key={Math.floor(Math.random() * 140000000000)} to={`/providers/${provider.provider_id}`}>
                                     <img src={backdrop_url+provider.logo_path}/>
                                     <h3>{provider.provider_name}</h3>
                                 </Posters>
@@ -56,6 +56,7 @@ font-family: 'Indie Flower', cursive;
 h2{
     font-size: 40px;
     border-bottom: 2px solid black;
+    width: fit-content;
 }
 `;
 
@@ -85,9 +86,9 @@ const Posters = styled(Link)`
     }
     h3{
         font-size: 30px;
-        width: 280px;
-        margin-left: 10px;
-        border-bottom: 1px solid black;
+        width:fit-content;
+        margin-left: 10%;
+        border-bottom: 1px solid lightgray;
     }
 `;
 

@@ -126,20 +126,20 @@ useEffect(() => {
                 <Left>
                 <Poster>
                     <div>
-                    <img src={backdrop_url+stateMovie?.backdrop_path}/>
-                    <Favorite movieId={stateMovie.id} AddFavoriteMovie={AddFavoriteMovie} DeleteFavoriteMovie={DeleteFavoriteMovie}/>
+                        {stateMovie.poster_path &&
+                    <img src={backdrop_url+stateMovie?.poster_path}/>}
+                    <Favorite  movieId={stateMovie.id} AddFavoriteMovie={AddFavoriteMovie} DeleteFavoriteMovie={DeleteFavoriteMovie}/>
                     </div>
                     <Detail>
                         <h2>{stateMovie.title}</h2>
                         <h1>Release : {stateMovie.release_date}</h1>
                         <Genre>
-                            <h1>moods : </h1>
+                            <h1>Genres : </h1>
                         {stateMovie.genres.map((item, index) => {
-                            return <MoodLink key={index} to={`/mood/${item.id}`}>{item.name} ,</MoodLink>})}
+                            return <MoodLink key={index} to={`/mood/${item.id}`}><h5>{item.name} ,</h5></MoodLink>})}
                             </Genre>
-                        <p>{stateMovie.runtime} min.</p>
-                        <h5>Rate : </h5>
-                        <p>{Math.floor(stateMovie.vote_average)}/10</p>
+                        <h1>Time : <p>{stateMovie.runtime} min.</p></h1>
+                        <h1>Rate : <p>{Math.floor(stateMovie.vote_average)}/10</p></h1>
                         <h5> - {stateMovie.overview}</h5>
                     </Detail>
                 </Poster>
@@ -152,10 +152,11 @@ useEffect(() => {
                         let backdrop_url = "https://image.tmdb.org/t/p/w500";
                         return (
                             <Casting key={index2} to={`/actors/${cast.id}`}>
-                                <img src={backdrop_url+cast?.profile_path}/>
+                                {cast.profile_path &&
+                                <img src={backdrop_url+cast.profile_path}/>}
                                 <div>
                                     <h3>{cast.name}</h3>
-                                    <p>Played as: {cast.character}</p>
+                                    <h5>Played as : </h5><p>{cast.character}</p>
                                 </div>
                             </Casting>
                         )
@@ -170,7 +171,8 @@ useEffect(() => {
                         let backdrop_url = "https://image.tmdb.org/t/p/w500";
                         return (
                             <Casting key={index3} to={`/movies/${similar.id}`}>
-                                <img src={backdrop_url+similar?.poster_path}/>
+                                {similar.poster_path &&
+                                <img src={backdrop_url+similar.poster_path}/>}
                                 <div>
                                     <h3>{similar.title}</h3>
                                     <p>Rate : <span>{Math.floor(similar.vote_average)}/10</span></p>
@@ -188,7 +190,9 @@ useEffect(() => {
 }
 
 const Right = styled.div`
-    margin-left: 5%;
+    margin-left: 3%;
+    padding-left: 3%;
+    border-left: 1px dotted lightgray;
 `;
 
 const All= styled.div`
@@ -237,12 +241,15 @@ const Casting = styled(Link)`
         border-bottom: 1px solid black;
         width: fit-content;
         margin-left: 10px;
+        margin-top: 0px;
     }
     p{
         font-size: 20px;
         margin-top: -20px;
         margin-left: 10px;
         font-weight: 600;
+        border-bottom: 1px solid lightgray;
+        width: fit-content;
     }
     span{
         font-size: 20px;
@@ -253,6 +260,13 @@ const Casting = styled(Link)`
         border-radius: 50%;
         width: fit-content;
         padding: 5px;
+    }
+    h5{
+        border-bottom: 1px solid red;
+        width: fit-content;
+        margin-top: -20px;
+        margin-left: 10px;
+        font-size: 15px;
     }
 `;
 
@@ -270,7 +284,6 @@ h2{
 const Genre = styled.div`
     display: flex;
     align-items: center;
-    cursor: pointer;
 `;
 
 const MoodLink = styled(Link)`
@@ -278,9 +291,9 @@ const MoodLink = styled(Link)`
     font-size: 20px;
     margin-left: 10px;
     font-weight: bolder;
+    cursor: pointer;
         :hover::first-letter{
             color :red;
-            font-size: 25px;
         }
 `;
 
@@ -295,16 +308,16 @@ const Poster = styled.div`
         border-radius: 50px;
         box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
         width: fit-content;
-        height: fit-content;
+        height: 400px;
     }
 `;
 
 const Detail = styled.div`
 margin-left: 10px;
     p{
+        all: unset;
         font-size: 30px;
-        margin-top:-30px;
-        margin-left: 15px;
+        margin-left: 50px;
         text-align: left;
         border: 3px solid red;
         border-radius: 50%;
@@ -314,9 +327,10 @@ margin-left: 10px;
     h5{
         font-size: 20px;
         width: fit-content;
-        margin-top: -20px;
+        height: fit-content;
     }
-    h2{
+    h1{
+        border-bottom: 1px solid lightgray;
         width: fit-content;
     }
 `;

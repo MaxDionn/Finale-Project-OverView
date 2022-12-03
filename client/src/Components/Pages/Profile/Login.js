@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ButtonLogin from "./ButtonLogin";
 import ButtonLogout from "./ButtonLogout";
+import Profile from "./Profile"
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Login = () => {
@@ -34,7 +35,7 @@ const Login = () => {
     };
     
     return ( 
-        <div>
+        <Home>
             <h1>Profile</h1>
             {error && <p>Login Error</p>}
             {!error && isLoading && <LoadingCube/>}
@@ -45,20 +46,43 @@ const Login = () => {
                     {isAuthenticated && (
                     <UserStyle>
                         <img src={user.picture}/>
-                        <h1>- {user.name} -</h1>
+                        <h2><span>-</span> {user.name} <span>-</span></h2>
                     </UserStyle>
                     )}
                 </>
             )}
-        </div>
+        </Home>
     )
     }
 
-    const UserStyle = styled.div`
-    font-family: 'Indie Flower', cursive;
+
+const Home = styled.div`
+margin: 5% -10%;
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-left: -10%;
+font-family: 'Indie Flower', cursive;
+h1{
+    font-size: 60px;
+    border-bottom: 1px solid black;
+}
+`;
+
+const UserStyle = styled.div`
+    display: flex;
+    flex-direction: column;
     img{
         border-radius: 50%;
-        border: 5px solid black;
+        border: 3px solid black;
+        box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+    }
+    h2{
+        font-size: 40px;
+        span{
+            color: red;
+            font-size: 50px;
+        }
     }
     `;
 

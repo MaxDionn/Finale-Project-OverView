@@ -31,24 +31,26 @@ const Actors = () => {
                     <h2>Popular Actors</h2>
                 </div>
                 <MapSelec>
-                {stateActors.map((actor, index) => {
+                {stateActors.map((actor) => {
                     let backdrop_url = "https://image.tmdb.org/t/p/w400";
                     return (
-                        <div key={index}>
+                        <div key={Math.floor(Math.random() * 140000000000)}>
                             <ActorsInfo to={`/actors/${actor.id}`}>
-                                <img src={backdrop_url+actor.profile_path}/>
+                                {actor.profile_path &&
+                                <img src={backdrop_url+actor.profile_path}/>}
                                 <h3>- {actor.name} -</h3>
                             </ActorsInfo>
                             <div>
                                 <h2>Known For </h2>
                                 {actor.known_for.map((item) => {
                                     return(
-                                        <Posters to={`/movies/${item.id}`}>
-                                            <img src={backdrop_url+item.poster_path}/>
+                                        <Posters to={`/movies/${item.id}`} key={Math.floor(Math.random() * 140000000000)}>
+                                            {item.poster_path &&
+                                            <img src={backdrop_url+item.poster_path}/>}
                                             <div>
                                                 <h3>{item.title}</h3>
-                                                <p><span>{item.vote_average}/10</span></p>
-                                                <p>{item.release_date}</p>
+                                                <p>Rated : <span>{item.vote_average}/10</span></p>
+                                                <p>Release : {item.release_date}</p>
                                             </div>
                                         </Posters>
                                     )
@@ -73,6 +75,7 @@ font-family: 'Indie Flower', cursive;
 h2{
     font-size: 40px;
     border-bottom: 2px solid black;
+    width: fit-content;
 }
 `;
 
@@ -135,12 +138,15 @@ img{
         border-bottom: 1px solid black;
         width: fit-content;
         margin-left: 10px;
+        margin-top: 10px;
     }
     p{
         font-size: 20px;
-        margin-top: -20px;
+        margin-top: -10px;
         margin-left: 10px;
         font-weight: 600;
+        border-bottom: 1px solid lightgray;
+        width: fit-content;
     }
     span{
         border: 3px solid red;
@@ -158,7 +164,7 @@ const MapSelec = styled.div`
     gap: 20px;
     height: fit-content;
     h5{
-        border-bottom: 5px solid black;
+        border-bottom: 5px solid lightgray;
         border-radius: 70px;
         margin: 50px 0px;
     }

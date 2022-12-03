@@ -50,7 +50,6 @@ useEffect(() => {
         }
         else{
         setStateLatest(data)
-            console.log(data)
         }
     })
     .catch(() => {
@@ -73,66 +72,77 @@ return (
                     <Title>
                     <h2>Popular Movies</h2>
                     </Title>
-                        {state.map((item, index) => {
-                            return item.genre_ids.map((genre) => {
+                        {state.map((item) => {
+                            return (
+                                <div key={Math.floor(Math.random() * 140000)}>
+                                {item.genre_ids.map((genre) => {
                                 if(id == genre){
                                     return (
-                                    <Casting key={index} to={`/movies/${item.id}`}>
-                                        <img src={backdrop_url+item?.poster_path}/>
+                                    <Casting key={Math.floor(Math.random() * 140000)} to={`/movies/${item.id}`}>
+                                        {item.poster_path && 
+                                        <img src={backdrop_url+item.poster_path}/>}
                                         <div>
                                             <h3>{item.title}</h3>
-                                            <p>{item.release_date}</p>
-                                            <p><span>{Math.floor(item.vote_average)}/10</span></p>
+                                            <p>Rate : <span>{Math.floor(item.vote_average)}/10</span></p>
+                                            <p>Release : {item.release_date}</p>
                                         </div>
                                     </Casting>
                                     )
                                 }else{
-                                    return <div>{""}</div>
+                                    return <div key={Math.floor(Math.random() * 140000)}>{""}</div>
                                 }
-                            })
+                            })}
+                            </div>
+                            )
                         })}
                     </div>
                     <Right>
                     <Title>
                     <h2>Top Rated Movies</h2>
                     </Title>
-                        {stateTop.map((item2, index2) => {
-                            return item2.genre_ids.map((genre) => {
+                        {stateTop.map((item2) => {
+                            return (
+                                <div key={Math.floor(Math.random() * 140000)}>
+                                {item2.genre_ids.map((genre) => {
                                 if(id == genre){
                                     return (
-                                    <Casting key={index2} to={`/movies/${item2.id}`}>
-                                        <img src={backdrop_url+item2?.poster_path}/>
+                                    <Casting key={Math.floor(Math.random() * 140000)} to={`/movies/${item2.id}`}>
+                                        {item2.poster_path &&
+                                        <img src={backdrop_url+item2.poster_path}/>}
                                         <div>
                                             <h3>{item2.title}</h3>
-                                            <p>{item2.release_date}</p>
-                                            <p><span>{Math.floor(item2.vote_average)}/10</span></p>
+                                            <p>Rate : <span>{Math.floor(item2.vote_average)}/10</span></p>
+                                            <p>Release : {item2.release_date}</p>
                                         </div>
                                     </Casting>
                                     )
                                 }else{
-                                    return <div>{""}</div>
+                                    return <div key={Math.floor(Math.random() * 140000)}>{""}</div>
                                 }
-                            })
+                            })}
+                            </div>
+                            )
                         })}
                     </Right>
                     <Right>
                     <Title>
                     <h2>Latest Movies</h2>
                     </Title>
-                        {stateLatest.genres.map((genre, index3) => {
+                        {stateLatest.genres.map((genre) => {
                                 if(id == genre){
                                     return (
-                                    <Casting key={index3} to={`/movies/${stateLatest.id}`}>
-                                        <img src={backdrop_url+stateLatest?.poster_path}/>
+                                    <Casting key={Math.floor(Math.random() * 140000)} to={`/movies/${stateLatest.id}`}>
+                                        {stateLatest.poster_path &&
+                                        <img src={backdrop_url+stateLatest.poster_path}/>}
                                         <div>
                                             <h3>{stateLatest.title}</h3>
-                                            <p>{stateLatest.release_date}</p>
-                                            <p><span>{Math.floor(stateLatest.vote_average)}/10</span></p>
+                                            <p>Rate : <span>{Math.floor(stateLatest.vote_average)}/10</span></p>
+                                            <p>Release : {stateLatest.release_date}</p>
                                         </div>
                                     </Casting>
                                     )
                                 }else{
-                                    return <div>{""}</div>
+                                    return <div key={Math.floor(Math.random() * 140000)}>{""}</div>
                                 }
                             })
                         }
@@ -146,7 +156,9 @@ return (
 }
 
 const Right = styled.div`
-margin-left: 20%;
+margin-left: 10%;
+padding-left: 10%;
+border-left: 1px dotted lightgray;
 `;
 
 const Title = styled.div`
@@ -198,13 +210,15 @@ const Casting = styled(Link)`
         border-bottom: 1px solid black;
         width: fit-content;
         margin-left: 10px;
-        margin-top: 20px;
+        margin-top: 10px;
     }
     p{
         font-size: 20px;
-        margin-top: -20px;
+        margin-top: -10px;
         margin-left: 10px;
         font-weight: 600;
+        border-bottom: 1px solid lightgray;
+        width: fit-content;
     }
     span{
         font-size: 20px;

@@ -53,7 +53,6 @@ useEffect(() => {
             }
             else{
                 setStateLatest(data)
-                console.log(data)
             }
         })
         .catch(() => {
@@ -72,66 +71,77 @@ return (
                         <Title>
                     <h2>Popular Tv Shows</h2>
                     </Title>
-                    {stateTv.map((itemTv, index) => {
-                        return itemTv.genre_ids.map((genre2) => {
+                    {stateTv.map((itemTv) => {
+                        return (
+                            <div key={Math.floor(Math.random() * 140000)}>
+                            {itemTv.genre_ids.map((genre2) => {
                             if(id == genre2){
                                 return (
-                                <Casting key={index}>
-                                    <img src={backdrop_url+itemTv?.poster_path}/>
+                                <Casting key={Math.floor(Math.random() * 140000)} to={`/tvShows/${itemTv.id}`}>
+                                    {itemTv.poster_path &&
+                                    <img src={backdrop_url+itemTv.poster_path}/>}
                                     <div>
                                         <h3>{itemTv.name}</h3>
-                                        <p>{itemTv.first_air_date}</p>
-                                        <p><span>{Math.floor(itemTv.vote_average)}</span></p>
+                                        <p>Rate : <span>{Math.floor(itemTv.vote_average)}</span></p>
+                                        <p>Release : {itemTv.first_air_date}</p>
                                     </div>
                                 </Casting>
                                 )
                             }else{
-                                return <div>{""}</div>
+                                return <div key={Math.floor(Math.random() * 140000)}>{""}</div>
                             }
-                        })
+                        })}
+                        </div>
+                        )
                     })}
                 </div>
                 <Right>
                 <Title>
                 <h2>Top Rated Tv Shows</h2>
                 </Title>
-                    {stateRated.map((itemTv2, index2) => {
-                        return itemTv2.genre_ids.map((genre2) => {
+                    {stateRated.map((itemTv2) => {
+                        return (
+                            <div key={Math.floor(Math.random() * 140000)}>
+                            {itemTv2.genre_ids.map((genre2) => {
                             if(id == genre2){
                                 return (
-                                <Casting key={index2}>
-                                    <img src={backdrop_url+itemTv2?.poster_path}/>
+                                <Casting key={Math.floor(Math.random() * 140000)} to={`/tvShows/${itemTv2.id}`}>
+                                    {itemTv2.poster_path &
+                                    <img src={backdrop_url+itemTv2.poster_path}/>}
                                     <div>
                                         <h3>{itemTv2.name}</h3>
-                                        <p>{itemTv2.first_air_date}</p>
-                                        <p><span>{Math.floor(itemTv2.vote_average)}</span></p>
+                                        <p>Rate : <span>{Math.floor(itemTv2.vote_average)}</span></p>
+                                        <p>Release : {itemTv2.first_air_date}</p>
                                     </div>
                                 </Casting>
                                 )
                             }else{
-                                return <div>{""}</div>
+                                return <div key={Math.floor(Math.random() * 140000)}>{""}</div>
                             }
-                        })
+                        })}
+                        </div>
+                        )
                     })}
                 </Right>
                 <Right>
                 <Title>
                 <h2>Latest Tv Shows</h2>
                 </Title>
-                    {stateLatest.genres.map((genre2, index3) => {
+                    {stateLatest.genres.map((genre2) => {
                             if(id == genre2){
                                 return (
-                                <Casting key={index3}>
-                                    <img src={backdrop_url+stateLatest?.poster_path}/>
+                                <Casting key={Math.floor(Math.random() * 140000)} to={`/tvShows/${stateLatest.id}`}>
+                                    {stateLatest.poster_path &&
+                                    <img src={backdrop_url+stateLatest.poster_path}/>}
                                     <div>
                                         <h3>{stateLatest.name}</h3>
-                                        <p>{stateLatest.first_air_date}</p>
-                                        <p><span>{Math.floor(stateLatest.vote_average)}</span></p>
+                                        <p>Rate : <span>{Math.floor(stateLatest.vote_average)}</span></p>
+                                        <p>Release : {stateLatest.first_air_date}</p>
                                     </div>
                                 </Casting>
                                 )
                             }else{
-                                return <div>{""}</div>
+                                return <div key={Math.floor(Math.random() * 140000)}>{""}</div>
                             }
                         })
                     }
@@ -144,7 +154,9 @@ return (
 }
 
 const Right = styled.div`
-margin-left: 20%;
+margin-left: 10%;
+padding-left: 10%;
+border-left: 1px dotted lightgray;
 `;
 
 const Title = styled.div`
@@ -196,13 +208,15 @@ const Casting = styled(Link)`
         border-bottom: 1px solid black;
         width: fit-content;
         margin-left: 10px;
-        margin-top: 20px;
+        margin-top: 10px;
     }
     p{
         font-size: 20px;
-        margin-top: -20px;
+        margin-top: -10px;
         margin-left: 10px;
         font-weight: 600;
+        border-bottom: 1px solid lightgray;
+        width: fit-content;
     }
     span{
         font-size: 20px;

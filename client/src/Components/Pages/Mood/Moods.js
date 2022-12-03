@@ -51,9 +51,9 @@ const Moods = () => {
                     </Title>
                     <All>
                         <MapSelec>
-                        {stateMood.map((mood, index) => {
+                        {stateMood.map((mood) => {
                             return(
-                                <div key={index}>
+                                <div key={Math.floor(Math.random() * 140000)}>
                                         <Mood to={`/mood/${mood.id}`}><h4>{mood.name}</h4></Mood>
                                     </div>
                             )
@@ -61,9 +61,9 @@ const Moods = () => {
                         </MapSelec>
                         <Right>
                         <MapSelec>
-                        {stateTvMood.map((mood2, index) => {
+                        {stateTvMood.map((mood2) => {
                             return(
-                                <div key={index}>
+                                <div key={Math.floor(Math.random() * 140000)}>
                                         <Mood to={`/moodTv/${mood2.id}`}><h4>{mood2.name}</h4></Mood>
                                     </div>
                             )
@@ -77,7 +77,9 @@ const Moods = () => {
     )
     }
 const Right = styled.div`
-    margin-left: 20%;
+    margin-left: 10%;
+    padding-left: 10%;
+    border-left:  1px dotted black;
 `;
 
 const Title = styled.div`
@@ -130,13 +132,15 @@ const MapSelec = styled.div`
             border-bottom: 3px solid transparent;
         }
         :hover{
+            transition: 0.7s;
+            box-shadow: #ffc2d1 0px 10px 70px;
             h4{
                 transition: 0.2s;
-                border-bottom: 3px solid red;
-                border-left: 1px solid red;
-                border-right: 1px solid red;
+                border-bottom: 1px solid #ffc2d1;
+                border-left: 5px solid #ffc2d1;
+                border-right: 5px solid #ffc2d1;
                 border-radius: 50%;
-                width: 300px;
+                width: 290px;
             }
         }
     `;

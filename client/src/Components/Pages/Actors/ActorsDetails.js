@@ -106,8 +106,8 @@ useEffect(() => {
             :
             <div>
             <Poster>
-                <div>
-                    <img src={backdrop_url+stateActorsById?.profile_path}/>
+                <div>{stateActorsById.profile_path &&
+                    <img src={backdrop_url+stateActorsById?.profile_path}/>}
                     <FavoriteActor actorId={stateActorsById.id} AddFavoriteActor={AddFavoriteActor} DeleteFavoriteActor={DeleteFavoriteActor}/>
                 </div>
                 <Detail>
@@ -128,12 +128,13 @@ useEffect(() => {
                 {stateActMovCred.cast.map((castItem, index) => {
                     return (
                         <Casting key={index} to={`/movies/${castItem.id}`}>
-                            <img src={backdrop_url+castItem?.poster_path} />
+                            {castItem.poster_path &&
+                            <img src={backdrop_url+castItem.poster_path} />}
                             <div>
                                 <h3>{castItem.title}</h3>
-                                <p>Character - {castItem.character}</p>
-                                <p>Release - {castItem.release_date}</p>
-                                <p><span>{Math.floor(castItem.vote_average)}/10</span></p>
+                                <p>Character : {castItem.character}</p>
+                                <p>Release : {castItem.release_date}</p>
+                                <p>Rate : <span>{Math.floor(castItem.vote_average)}/10</span></p>
                             </div>
                         </Casting>
                     )
@@ -143,12 +144,13 @@ useEffect(() => {
                 {stateActMovCred.crew.map((crewItem, index2) => {
                     return (
                         <Casting key={index2} to={`/movies/${crewItem.id}`}>
-                            <img src={backdrop_url+crewItem?.poster_path} />
+                            {crewItem.poster_path &&
+                            <img src={backdrop_url+crewItem.poster_path} />}
                             <div>
                                 <h3>{crewItem.title}</h3>
                                 <p>Job - {crewItem.job}</p>
                                 <p>Release - {crewItem.release_date}</p>
-                                <p><span>{Math.floor(crewItem.vote_average)}/10</span></p>
+                                <p>rate : <span>{Math.floor(crewItem.vote_average)}/10</span></p>
                             </div>
                         </Casting>
                     )
@@ -207,6 +209,8 @@ const Casting = styled(Link)`
         margin-top: -10px;
         margin-left: 10px;
         font-weight: 600;
+        border-bottom: 1px solid lightgray;
+        width: fit-content;
     }
     span{
         font-size: 20px;
@@ -227,7 +231,9 @@ display: grid;
 `;
 
 const Crew = styled.div`
-margin-left: 90px;
+margin-left: 2%;
+padding-left: 2%;
+border-left: 1px dotted lightgray;
 display: grid;
     grid-template-columns: 400px 400px;
     text-align: center;
@@ -255,8 +261,8 @@ margin-left: 10px;
         width: fit-content;
         margin-top: -20px;
         margin-left: 10px;
+        border-bottom: 1px solid lightgray;
         span{
-            border-bottom: 1px solid black;
             font-size: 20px;
             margin-right: 10px;
         }

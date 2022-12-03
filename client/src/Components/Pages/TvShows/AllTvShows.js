@@ -3,29 +3,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ErrorPage from "../../ErrorPage";
 
-const AllMovies = () => {
-    const [stateUp, setStateUp] = useState()
+const AllTvShows = () => {
     const [stateLatest, setStateLatest] = useState()
-    const [stateNow, setStateNow] = useState()
+    const [statePop, setStatePop] = useState()
     const [stateTop, setStateTop] = useState()
     let backdrop_url = "https://image.tmdb.org/t/p/w500";
 
     useEffect(() => {
-        fetch("/get-movie-upcoming")
-        .then(res => res.json())
-        .then((data) => {
-            if(data.status===400||data.status===500){
-                return new Error(data.message)
-            }
-            else{
-                setStateUp(data)
-            }
-        })
-        .catch(() => {
-            setStateUp("error")
-        })
     
-        fetch("/get-movie-latest")
+        fetch("/get-tv-latest")
         .then(res => res.json())
         .then((data) => {
             if(data.status===400||data.status===500){
@@ -39,21 +25,21 @@ const AllMovies = () => {
             setStateLatest("error")
         })
     
-        fetch("/get-movie-nowPlaying")
+        fetch("/get-tv-popular")
         .then(res => res.json())
         .then((data) => {
             if(data.status===400||data.status===500){
                 return new Error(data.message)
             }
             else{
-                setStateNow(data)
+                setStatePop(data.results)
             }
         })
         .catch(() => {
-            setStateNow("error")
+            setStatePop("error")
         })
 
-        fetch("/get-movie-topRated")
+        fetch("/get-tv-topRated")
         .then(res => res.json())
         .then((data) => {
             if(data.status===400||data.status===500){
@@ -67,81 +53,63 @@ const AllMovies = () => {
             setStateTop("error")
         })
     },[])
-    
-    if (stateUp === "error") {
+
+    if (statePop === "error") {
         return <ErrorPage/>
     }else{
         
         return (
             <Home>
-            {!stateUp || !stateLatest || !stateNow || !stateTop ? 
+            {!stateLatest || !statePop || !stateTop  ? 
                 <LoadingCube/>
                 :
                 <div>
-                    <Title>
-                        <h2>Upcoming Movies
-                            <span>From : {stateUp.dates.minimum} 
-                            {" "} - To : {stateUp.dates.maximum}</span>
-                        </h2>
-                        <h2>Latest Movies</h2>
-                        <h2>Now Playing
-                                <span>From : {stateNow.dates.minimum} 
-                                {" "} - To : {stateNow.dates.maximum}</span>
-                        </h2>
-                        <h2>Top Rated Movies</h2>
-                    </Title>
                     <All>
                         <MapSelec>
-                            {stateUp.results.map((up) => {
-                                return (
-                                    <Posters key={Math.floor(Math.random() * 140000000000)} to={`/movies/${up.id}`}>
-                                        {up.poster_path &&
-                                        <img src={backdrop_url+up.poster_path}/>}
-                                        <div>
-                                            <h3>{up.title}</h3>
-                                            <p>Rate : <span>{Math.floor(up.vote_average)}</span></p>
-                                            <p>Release : {up.release_date}</p>
-                                        </div>
-                                    </Posters>
-                                )
-                            })}
-                        </MapSelec>
-                        <MapSelec>
-                            <Posters to={`/movies/${stateLatest.id}`}>
+                        <Title>
+                            <h2>Latest Movies</h2>
+                        </Title>
+                            <Posters to={`/tvShows/${stateLatest.id}`}>
                                 {stateLatest.poster_path && 
                                 <img src={backdrop_url+stateLatest.poster_path}/>}
                                 <div>
-                                    <h3>{stateLatest.title}</h3>
+                                    <h3>{stateLatest.name}</h3>
                                     <p>Rated : <span>{Math.floor(stateLatest.vote_average)}</span></p>
-                                    <p>Release : {stateLatest.release_date}</p>
+                                    <p>Release : {stateLatest.first_air_date}</p>
                                 </div>
                             </Posters>
                         </MapSelec>
                         <MapSelec>
-                                {stateNow.results.map((now) => {
+                        <Title>
+                        <h2>Popular Tv Shows</h2>
+                        </Title>
+                                {statePop.map((pop) => {
                                     return (
-                                        <Posters key={Math.floor(Math.random() * 140000000000)} to={`/movies/${now.id}`}>
-                                            {now.poster_path &&
-                                            <img src={backdrop_url+now.poster_path}/>}
+                                        <Posters key={Math.floor(Math.random() * 140000)} to={`/tvShows/${pop.id}`}>
+                                            {pop.poster_path &&
+                                            <img src={backdrop_url+pop.poster_path}/>}
                                             <div>
-                                                <h3>{now.title}</h3>
-                                                <p>Rated : <span>{Math.floor(now.vote_average)}</span></p>
-                                                <p>Release : {now.release_date}</p>
+                                                <h3>{pop.name}</h3>
+                                                <p>Rated : <span>{Math.floor(pop.vote_average)}</span></p>
+                                                <p>Release : {pop.first_air_date}</p>
                                             </div>
                                         </Posters>
                                     )
                                 })}
                         </MapSelec>
                         <MapSelec>
+                        <Title>
+                        <h2>Top Rated Movies</h2>
+                        </Title>    
                             {stateTop.map((top) => {
                                 return (
-                                    <Posters key={Math.floor(Math.random() * 140000000000)} to={`/movies/${top.id}`}>
+                                    <Posters key={Math.floor(Math.random() * 140000)} to={`/tvShows/${top.id}`}>
                                         {top.poster_path &&
                                         <img src={backdrop_url+top.poster_path}/>}
                                         <div>
-                                            <h3>{top.title}</h3>
+                                            <h3>{top.name}</h3>
                                             <p>Rated : <span>{Math.floor(top.vote_average)}</span></p>
-                                            <p>Rlease : {top.release_date}</p>
+                                            <p>Rlease : {top.first_air_date}</p>
                                         </div>
                                     </Posters>
                                 )
@@ -155,21 +123,13 @@ const AllMovies = () => {
     }
 }
 
-
-
 const All = styled.div`
 display: flex;
 `;
 
 const Title = styled.div`
 display: flex;
-justify-content: space-around;
-span{
-    all: unset;
-    all: unset;
-    font-size: 15px;
-    border-bottom: 1px solid lightgray;
-}
+justify-content: space-between;
 `;
 
 const Home = styled.div`
@@ -188,12 +148,13 @@ h2{
 
 const MapSelec = styled.div`
     display: grid;
-    grid-template-columns: 400px;
+    grid-template-columns: 400px ;
     justify-content: center;
     text-align: center;
     align-items: center;
     gap: 20px;
     height: fit-content;
+    margin: 0% 7%;
 `;
 
 const Posters = styled(Link)`
@@ -260,4 +221,4 @@ border-radius: 50%;
 }
 `;
 
-    export default AllMovies;
+    export default AllTvShows;

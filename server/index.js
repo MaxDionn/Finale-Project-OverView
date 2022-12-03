@@ -35,6 +35,8 @@ const {
         getMoviePopular,
         getMovieTopRated,
         getMovielatest,
+        getMovieUpcoming,
+        getMovieNowPlaying,
         getMovieById,
         getCreditMovieById,
         getSimilarMovieById,
@@ -97,6 +99,8 @@ express()
     .get("/get-movie-popular" , getMoviePopular)
     .get("/get-movie-topRated" , getMovieTopRated)
     .get("/get-movie-latest" , getMovielatest)
+    .get("/get-movie-upcoming" , getMovieUpcoming)
+    .get("/get-movie-nowPlaying" , getMovieNowPlaying)
     .get("/get-movieById/:id", getMovieById)
     .get("/get-movieById/:id/credits", getCreditMovieById)
     .get("/get-movieById/:id/similar", getSimilarMovieById)

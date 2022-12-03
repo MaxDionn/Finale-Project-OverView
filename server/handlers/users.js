@@ -199,6 +199,7 @@ const deleteFavById = async(req, res)=>{
             res.status(400).json({ status: 400, message: "did not find the user"})
         }else{
             const updFav = await db.collection("users").updateOne(query, {$pull:{movieId: addItem.id}})
+            //$pull:{movieId: {id:addItem.id}}
             res.status(200).json({ status: 200, data: updFav})
         }
     }

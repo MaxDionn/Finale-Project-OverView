@@ -26,6 +26,7 @@ h1{
     font-size: 60px;
     border-bottom: 2px solid black;
     width: fit-content;
+    margin-left: 50px;
 }
 `;
 

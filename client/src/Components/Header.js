@@ -1,6 +1,5 @@
 import {Link, NavLink, useParams} from "react-router-dom"
 import styled from "styled-components";
-import SearchBar from "./SearchBar";
 import {GiBodySwapping} from "react-icons/gi";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -12,8 +11,8 @@ const Header = () => {
             <StyleLink to={"/movies"}>Movies</StyleLink>
             <StyleLink to={"/tvShows"}>Tv Shows</StyleLink>
             <StyleLink to={"/actors"}>Actors</StyleLink>
-            <StyleLink to={"/"}><h1>W.M.T.</h1></StyleLink>
-            <StyleLink to={"/moods"}>Moods</StyleLink>
+            <StyleLink to={"/"}><h1>B. View</h1></StyleLink>
+            <StyleLink to={"/moods"}>Genres</StyleLink>
             <StyleLink to={"/providers"}>Providers</StyleLink>
             <StyleLink to={"/about"}>About</StyleLink>
             <StyleLink to={"/login"}>Log</StyleLink>
@@ -29,7 +28,7 @@ padding: 0px 10px;
 :hover{
         cursor: pointer;
         border-radius: 50%;
-        border-bottom: 7px solid white;
+        border-bottom: 1px solid white;
         border-left: 3px solid white;
         border-right: 3px solid white;
         transition: 0.2s;
@@ -44,7 +43,7 @@ color: white;
     :hover{
         cursor: pointer;
         border-radius: 50%;
-        border-bottom: 7px solid white;
+        border-bottom: 1px solid white;
         border-left: 3px solid white;
         border-right: 3px solid white;
         transition: 0.2s;

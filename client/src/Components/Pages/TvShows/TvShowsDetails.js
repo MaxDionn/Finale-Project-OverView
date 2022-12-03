@@ -101,7 +101,6 @@ useEffect(() => {
             }
             else{
             setStateSimilar(data.results)
-            console.log(data.results)
             }
         })
         .catch(() => {
@@ -122,20 +121,21 @@ useEffect(() => {
                     <Left>
                     <Poster>
                         <div>
-                        <img src={backdrop_url+stateTv.poster_path}/>
+                            {stateTv.poster_path &&
+                        <img src={backdrop_url+stateTv.poster_path}/>}
                         <FavoriteTvShow tvShowId={stateTv.id} AddFavoriteTvShow={AddFavoriteTvShow} DeleteFavoriteTvShow={DeleteFavoriteTvShow}/>
                         </div>
                         <Detail>
                             <h2>{stateTv.name}</h2>
-                            <h1>{stateTv.first_air_date}</h1>
+                            <h1>Release : {stateTv.first_air_date}</h1>
                             <Genre>
                                 <h1>Genres : </h1>
                             {stateTv.genres.map((genre, index)=>{
-                            return<MoodLink key={index} to={`/mood/${genre.id}`}>{genre.name} , </MoodLink>})}
+                            return<MoodLink key={index} to={`/mood/${genre.id}`}><h5>{genre.name} ,</h5> </MoodLink>})}
                             </Genre>
-                        <p>Number of seasons : <span>{stateTv.number_of_seasons}</span></p>
-                        <p>Rate : <span>{Math.floor(stateTv.vote_average)}/10</span></p>
-                        <h5>{stateTv.overview}</h5>
+                        <h1>Number of seasons : <span>{stateTv.number_of_seasons}</span></h1>
+                        <h1>Rate : <span>{Math.floor(stateTv.vote_average)}/10</span></h1>
+                        <h5> - {stateTv.overview}</h5>
                     </Detail>
                 </Poster>
                 <div>
@@ -147,11 +147,13 @@ useEffect(() => {
                         let backdrop_url = "https://image.tmdb.org/t/p/w500";
                         return (
                             <Casting key={index2} to={`/actors/${cast.id}`}>
-                                <img src={backdrop_url+cast?.profile_path}/>
+                                {cast.profile_path && 
+                                <img src={backdrop_url+cast.profile_path}/>}
                                 <div>
                                     <h3>{cast.name}</h3>
+                                    <h5>Played as : </h5>
                                     {cast.roles.map((role, index3)=> {
-                                        return <p key={index3}>{role.character}</p>
+                                        return  <p key={index3}>{role.character}</p>
                                     })}
                                 </div>
                             </Casting>
@@ -166,11 +168,12 @@ useEffect(() => {
                     {stateSimilar.map((similar, index4) => {
                         let backdrop_url = "https://image.tmdb.org/t/p/w500";
                         return (
-                            <Casting key={index4} to={`/tv/${similar.id}`}>
-                                <img src={backdrop_url+similar?.poster_path}/>
+                            <Casting key={index4} to={`/tvShows/${similar.id}`}>
+                                {similar.poster_path &&
+                                <img src={backdrop_url+similar?.poster_path}/>}
                                 <div>
                                     <h3>{similar.name}</h3>
-                                    <p><span>{Math.floor(similar.vote_average)}/10</span></p>
+                                    <p>Rate : <span>{Math.floor(similar.vote_average)}/10</span></p>
                                 </div>
                             </Casting>
                         )
@@ -184,7 +187,9 @@ useEffect(() => {
 }
 }
 const Right = styled.div`
-    margin-left: 5%;
+    margin-left: 3%;
+    padding-left: 3%;
+    border-left: 1px dotted lightgray;
 `;
 
 const All= styled.div`
@@ -207,6 +212,7 @@ const MapSelec = styled.div`
 
 const Casting = styled(Link)`
     all: unset;
+    overflow: hidden;
     width: 400px;
     height:160px;
     display: flex;
@@ -214,11 +220,11 @@ const Casting = styled(Link)`
     border-radius: 50px;
     border-top-right-radius:50%;
     box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
-    cursor: pointer;
     :hover{
         img{
             box-shadow:rgba(149, 157, 165, 1.2) 0px 20px 70px;
             transition: 0.3s;
+            cursor: pointer;
         }
     }
     img{
@@ -233,12 +239,15 @@ const Casting = styled(Link)`
         border-bottom: 1px solid black;
         width: fit-content;
         margin-left: 10px;
+        margin-top: 0px;
     }
     p{
         font-size: 20px;
         margin-top: -20px;
         margin-left: 10px;
         font-weight: 600;
+        border-bottom: 1px solid lightgray;
+        width: fit-content;
     }
     span{
         font-size: 20px;
@@ -249,6 +258,13 @@ const Casting = styled(Link)`
         border-radius: 50%;
         width: fit-content;
         padding: 5px;
+    }
+    h5{
+        border-bottom: 1px solid red;
+        width: fit-content;
+        margin-top: -20px;
+        margin-left: 10px;
+        font-size: 15px;
     }
 `;
 
@@ -266,7 +282,6 @@ h2{
 const Genre = styled.div`
     display: flex;
     align-items: center;
-    cursor: pointer;
 `;
 
 const MoodLink = styled(Link)`
@@ -274,9 +289,9 @@ const MoodLink = styled(Link)`
     font-size: 20px;
     margin-left: 10px;
     font-weight: bolder;
+    cursor: pointer;
         :hover::first-letter{
             color :red;
-            font-size: 25px;
         }
 `;
 
@@ -298,27 +313,23 @@ const Poster = styled.div`
 const Detail = styled.div`
 margin-left: 10px;
     p{
+        all: unset;
         font-size: 30px;
-        margin-top:-20px;
-        border-radius: 50%;
-    }
-    h5{
-        font-size: 20px;
-        width: fit-content;
-        margin-top: -20px;
-    }
-    h2{
-        width: fit-content;
-    }
-    span{
-        font-size: 30px;
-        margin-top:-30px;
-        margin-left: 15px;
+        margin-left: 50px;
         text-align: left;
         border: 3px solid red;
         border-radius: 50%;
         width: fit-content;
         padding: 5px;
+    }
+    h5{
+        font-size: 20px;
+        width: fit-content;
+        height: fit-content;
+    }
+    h1{
+        border-bottom: 1px solid lightgray;
+        width: fit-content;
     }
 `;
 

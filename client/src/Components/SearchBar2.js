@@ -1,37 +1,27 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SearchBar2 = () => {
+    let backdrop_url = "https://image.tmdb.org/t/p/w500";
     const [value, setValue] = useState("");
     const [items, setItems] = useState([""]);
 
-  //we need to get all the items
-    useEffect(() => {
-        fetch(`/get-searchBar?name=${value}`)
-        .then(res => res.json())
-        .then((data) => {
-            if(data.status===400||data.status===500){
-                return new Error(data.message)
-            }
-            else{
-                setItems(data.results)
-                console.log(data.results)
-            }
-        })
-        .catch(() => {
-            setItems("error")
-        })
-    }, []);
-
-  // we filter through the items so that after 2 inputs have registered
-  //then we can see what suggestions gives us
-    const matchedSuggestions = items.filter((suggestion) => {
-    return (
-        suggestion.name.toLowerCase().includes(value.toLowerCase()) &&
-        value.length >= 2
-    );
-    });
+useEffect(()=>{
+    fetch(`/get-searchBar?name=${value}`)
+    .then(res => res.json())
+    .then((data) => {
+        if(data.status===400||data.status===500){
+            return new Error(data.message)
+        }
+        else{
+            setItems(data.results)
+        }
+    })
+    .catch(() => {
+        setItems("error")
+    })
+},[value])
 
     const handleSelect = () => {
     setValue("");
@@ -40,11 +30,10 @@ const SearchBar2 = () => {
     return (
     <>
         {items.length === 0 ? 
-        <h1>Loadingg</h1>
+        <LoadingCube/>
             : 
         <StyleForm>
             <input
-            className="inputSearch"
             type="search"
             placeholder="Search..."
             onChange={(ev) => {
@@ -56,36 +45,34 @@ const SearchBar2 = () => {
                 }
             }}
             />
-            <i className="fas fa-search" onClick={() => setValue("")}></i>
-            <div className="container">
-            {matchedSuggestions.length > 0 && (
-                <SuggestionsList>
-                {matchedSuggestions.map((suggestion, _id, price, imageSrc) => {
+            <i onClick={() => setValue("")}></i>
+            <div>
+            {items.length > 0 && (
+                <SuggestionsList 
+                style={{display: value.length >=2 ? "block" : "none"}}>
+
+                {items.map((suggestion, _id) => {
+                    const genre = {movie:"movies", person:"actors", tv:"tvShows"}
+
+                    const query = suggestion.media_type
                     return (
                     // We made this a clickable link to go to each item by its id
-                    <SuggestionLink
+                    <Suggestion
                         key={_id}
-                        to={`/items/${suggestion._id}`}
                         onClick={() => handleSelect(suggestion)}
                     >
-                        <li className="miniDiv">
-                        <Image src={suggestion.imageSrc} alt="miniImages" />
-                        {suggestion.name.slice(
-                            0,
-                            suggestion.name
-                            .toLowerCase()
-                            .indexOf(value.toLowerCase()) + value.length
-                        )}
-                        <Prediction>
-                            {suggestion.name.slice(
-                            suggestion.name
-                                .toLowerCase()
-                                .indexOf(value.toLowerCase()) + value.length
-                            )}
-                            <p className="price">Price : {suggestion.price}</p>
+                        <li>
+                            
+                        <Prediction to={`/${genre[query]}/${suggestion.id}`}>
+                            {suggestion.poster_path && 
+                            <img src={backdrop_url+suggestion?.poster_path}/>}
+                            {suggestion.profile_path &&
+                            <img src={backdrop_url+suggestion?.profile_path}/>}
+                            <h3>{suggestion?.name}</h3>
+                            <h3>{suggestion?.title}</h3>
                         </Prediction>
                         </li>
-                    </SuggestionLink>
+                    </Suggestion>
                     );
                 })}
                 </SuggestionsList>
@@ -99,128 +86,73 @@ const SearchBar2 = () => {
 
 
 const StyleForm = styled.form`
-    background-color: #002b5b;
-    position: relative;
-    height: 40px;
-    z-index: 2;
+    position: absolute;
+    font-family: 'Indie Flower', cursive;
+    width: fit-content;
     
-    
-    :hover .inputSearch {
-        width: 350px;
-        background: #292c6d;
-        border-radius: 10px;
-    }
-    
-    :hover i {
-        opacity: 0;
-        z-index: -1;
-    }
-    
-    i {
-        position: absolute;
-        top: 50%;
-        right: 18px;
-        transform: translate(-50%, -50%);
-        font-size: 26px;
-    color: #e9d5da;
-    transition: 0.2s;
-}
-.inputSearch {
-    padding: 10px;
-    width: 30px;
-    height: 30px;
-    background: none;
-    border: 4px solid #51557e; //test color
-    border-radius: 50px;
-    box-sizing: border-box;
-    font-family: Comic Sans MS;
-    font-size: 20px;
-    color: #faedf0;
-    outline: none;
-    transition: 0.5s;
-}
-.inputSearch::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 18px;
-    letter-spacing: 2px;
-    font-weight: 100;
-}
-
-.inputSearch:focus {
-    width: 300px;
-    border-radius: 0px;
-    background-color: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
-}
+        input{
+            border: 2px solid black;
+            border-radius: 50px;
+            width: 400px;
+            font-size: 20px;
+            background: transparent;
+            margin-left: 10px;
+            padding: 3px;
+        }
 `;
 
 const SuggestionsList = styled.ul`
-    z-index: 2;
-    .miniDiv {
-        width: 100%;
-        height: 200px;
-        align-items: center;
-        background-color: white;
-        box-shadow: 5px 10px 20px #888888;
-        overflow: hidden;
-        overflow-y: auto;
-        border-radius: 10px;
-        &::-webkit-scrollbar {
-            display: none;
+    width: fit-content;
+    height: fit-content;
+`;
+
+const Suggestion = styled.div`
+    width: 350px;
+    li{
+        all: unset;
         }
-    }
-    
-    .miniDiv-first-child {
-        background-color: #c996cc;
-    }
-    
-    .miniDiv:hover {
-        background-color: #faf9f6;
-        border: 4px solid #0e5e6f;
-        transition: 0.3s ease-in-out;
-        border-radius: 10px;
-    }
-    `;
+`;
 
-const SuggestionLink = styled(NavLink)`
-    text-decoration: none;
-    margin: 1rem;
-    color: #060930;
-    position: relative;
-    `;
-
-const Prediction = styled.span`
+const Prediction = styled(Link)`
+    all: unset;
+    background: lightgray;
     font-weight: bold;
-    display: inline;
-    font-weight: bold;
-    .price {
-        background-color: #faf9f6;
-    }
-    `;
-
-const Image = styled.img`
-    display: inline-block;
-    position: relative;
-    width: 60px;
-    height: 60px;
-    margin-bottom: 20px;
-    margin-top: 8px;
-    border: 1px solid #0e5e6f;
-    border-radius: 10%;
-  /* overflow-y: auto; */
-    z-index: 2;
-    &:hover {
-        border: 4px solid #0e5e6f;
-        transition: 0.3s ease-in-out;
-    }
-    `;
-const Loading = styled.h1`
     display: flex;
-    justify-content: center;
-    background: transparent;
-    margin-top: 200px;
-    position: fixed;
-    `;
+    align-items: center;
+    box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+        h3{
+            margin-left: 5%;
+            border-bottom: 1px solid black;
+            width: fit-content;
+        }
+        img{
+            width: 100px;
+            border-radius: 50px;
+        }
+            :hover{
+                cursor: pointer;
+                transition: 0.5s;
+                border: 2px solid black;
+                border-radius: 50px;
+            }
+`;
+
+const LoadingCube = styled.div`
+margin-top: 400px;
+margin-left: 400px;
+width: 20px;
+height: 20px;
+background: purple;
+position: fixed;
+animation: mymove 1s infinite;
+border-radius: 50%;
+@keyframes mymove{
+    0%   {top: 0px; left: 0px; background: red; transition:0.5s}
+    25%  {top: 0px; left: 50px; background: blue; transition:0.5s}
+    50%  {top: 50px; left: 50px; background: yellow; transition:0.5s}
+    75%  {top: 50px; left: 0px; background: green; transition:0.5s}
+    100% {top: 0px; left: 0px; background: red; transition:0.5s}
+}
+`;
 
 export default SearchBar2;

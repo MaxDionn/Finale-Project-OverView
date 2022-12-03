@@ -63,11 +63,11 @@ const HomePage = () => {
                         let backdrop_url = "https://image.tmdb.org/t/p/w500";
                         return (
                             <Posters key={index} to={`/movies/${item.id}`}>
-                                <img src={backdrop_url+item.backdrop_path}></img>
+                                {item.backdrop_path && 
+                                <img src={backdrop_url+item.backdrop_path}/>}
                                 <p>{Math.floor(item.vote_average)}/10</p>
                                 <h3>{item.title}</h3>
-                                <div>{item.release_date}</div>
-                                <p>{item.id}</p>
+                                <h5>Release : {item.release_date}</h5>
                                 </Posters>
                             )
                         })}
@@ -77,11 +77,11 @@ const HomePage = () => {
                         let backdrop_url = "https://image.tmdb.org/t/p/w500";
                         return (
                             <Posters key={index} to={`/tvShows/${tv.id}`}>
-                                <img src={backdrop_url+tv.backdrop_path}></img>
+                                {tv.backdrop_path && 
+                                <img src={backdrop_url+tv.backdrop_path}/>}
                                 <p>{Math.floor(tv.vote_average)}/10</p>
                                 <h3>{tv.name}</h3>
-                                <div>{tv.first_air_date}</div>
-                                <p>{tv.id}</p>
+                                <h5>Release : {tv.first_air_date}</h5>
                             </Posters>
                             )
                         })}
@@ -111,6 +111,7 @@ font-family: 'Indie Flower', cursive;
 h2{
     font-size: 40px;
     border-bottom: 2px solid black;
+    width: fit-content;
 }
 `;
 
@@ -136,13 +137,19 @@ const Posters = styled(Link)`
     }
     h3{
         font-size: 30px;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid lightgray;
         margin-top: -30px;
+        width: fit-content;
+        margin-left: 10px;
     }
-    div{
+    h5{
+        all: unset;
         font-size: 20px;
         margin-top: -20px;
         font-weight: 600;
+        border-bottom: 1px solid lightgray;
+        width: fit-content;
+        margin-left: 10px;
     }
     p{
         font-size: 30px;
@@ -168,7 +175,7 @@ const MapSelec = styled.div`
 
 const MapSelec2 = styled.div`
     padding-left: 50px;
-    border-left: 1px dotted black;
+    border-left: 1px dotted lightgray;
     margin-left: 50px;
     display: grid;
     grid-template-columns: 400px 400px ;

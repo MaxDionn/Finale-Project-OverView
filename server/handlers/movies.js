@@ -45,6 +45,32 @@ try{
 }
 }
 
+//--- endpoint to GET Upcoming movies ---//
+
+const getMovieUpcoming = async(req, res)=>{
+    let goodUrl = start_url + "/movie/upcoming" + API_key + "&region=CA";
+try{
+    const upcoming = await request(goodUrl)
+    res.status(200).send(upcoming)
+
+}catch(err){
+    res.status(400).json({status: 400 , message: err})
+}
+}
+
+//--- endpoint to GET Now playing movies ---//
+
+const getMovieNowPlaying = async(req, res)=>{
+    let goodUrl = start_url + "/movie/now_playing" + API_key + "&region=CA";
+try{
+    const upcoming = await request(goodUrl)
+    res.status(200).send(upcoming)
+
+}catch(err){
+    res.status(400).json({status: 400 , message: err})
+}
+}
+
 //--- endpoint to GET a movie by Id ---//
 
 const getMovieById = async(req, res)=>{
@@ -96,4 +122,6 @@ module.exports={
     getSimilarMovieById,
     getMovieTopRated,
     getMovielatest,
+    getMovieNowPlaying,
+    getMovieUpcoming,
 }
