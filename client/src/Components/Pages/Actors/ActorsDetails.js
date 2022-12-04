@@ -102,7 +102,9 @@ useEffect(() => {
         return ( 
         <Home>
             {!stateActorsById || !stateActMovCred ? 
-            <LoadingCube/>
+            <Err>
+                <LoadingCube/>
+            </Err>
             :
             <div>
             <Poster>
@@ -285,6 +287,11 @@ const Poster = styled.div`
         width: 300px;
         height: fit-content;
     }
+`;
+
+const Err = styled.div`
+    background-color: #252422;
+    height: 1000px;
 `;
 
 const LoadingCube = styled.div`

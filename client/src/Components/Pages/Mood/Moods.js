@@ -42,7 +42,9 @@ const Moods = () => {
     return ( 
         <Home>
             {!stateMood || !stateTvMood ? 
-            <LoadingCube/>
+            <Err>
+                <LoadingCube/>
+            </Err>
         :
             <div>
                     <Title>
@@ -139,6 +141,11 @@ const MapSelec = styled.div`
             }
         }
     `;
+
+const Err = styled.div`
+background-color: #252422;
+height: 1000px;
+`;
 
     const LoadingCube = styled.div`
     margin-top: 400px;

@@ -31,7 +31,9 @@ useEffect(()=>{
     return (
     <>
         {items.length === 0 ? 
-        <LoadingCube/>
+        <Err>
+            <LoadingCube/>
+        </Err>
             : 
         <StyleForm>
             <input
@@ -135,6 +137,11 @@ const Prediction = styled(Link)`
                 border: 2px solid black;
                 border-radius: 50px;
             }
+`;
+
+const Err = styled.div`
+    background-color: #252422;
+    height: 1000px;
 `;
 
 const LoadingCube = styled.div`

@@ -115,7 +115,9 @@ useEffect(() => {
         return ( 
             <Home>
                 {!stateTv || !stateCredits || !stateSimilar ? 
-                <LoadingCube/>
+                <Err>
+                    <LoadingCube/>
+                </Err>
                 :
                 <All>
                     <Left>
@@ -346,6 +348,11 @@ margin-left: 10px;
         width: fit-content;
         border-bottom: 3px solid black;
     }
+`;
+
+const Err = styled.div`
+    background-color: #252422;
+    height: 1000px;
 `;
 
     const LoadingCube = styled.div`

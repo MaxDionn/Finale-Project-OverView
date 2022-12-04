@@ -64,7 +64,9 @@ if (state === "error") {
 return (
     <Home>
             {!state || !stateTop || !stateLatest ? 
-            <LoadingCube/>
+            <Err>
+                <LoadingCube/>
+            </Err>
             :
             <div>
                 <All>
@@ -230,6 +232,11 @@ const Casting = styled(Link)`
         width: fit-content;
         padding: 5px;
     }
+`;
+
+const Err = styled.div`
+    background-color: #252422;
+    height: 1000px;
 `;
 
 const LoadingCube = styled.div`

@@ -49,7 +49,9 @@ const HomePage = () => {
         return (
             <Home>
             {!state || !stateTv ? 
-            <LoadingCube/>
+            <Err>
+                <LoadingCube/>
+            </Err>
             :
             <div>
                 <Title>
@@ -93,6 +95,11 @@ const HomePage = () => {
     )
 }
 }
+
+const Err = styled.div`
+    background-color: #252422;
+    height: 1000px;
+`;
 
 const All = styled.div`
 display: flex;
@@ -192,7 +199,7 @@ const LoadingCube = styled.div`
     margin-left: 400px;
     width: 20px;
     height: 20px;
-    background: purple;
+    background-color: #ccc5b9;
     position: fixed;
     animation: mymove 1s infinite;
     border-radius: 50%;

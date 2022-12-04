@@ -19,6 +19,7 @@ const Profile = () => {
             }
             else{
                 setStateProfile(data.data)
+                console.log(data.data)
             }
         })
         .catch((err) => {
@@ -95,6 +96,7 @@ font-size: 30px;
 `;
 
 const Home = styled.div`
+height: 1000px;
 margin: 5% 40%;
 text-align: center;
 font-family: 'Montserrat Alternates', sans-serif;
@@ -120,12 +122,16 @@ h4{
 }
 `;
 
+const Err = styled.div`
+    background-color: #252422;
+    height: 1000px;
+`;
+
 const LoadingCube = styled.div`
-    margin-top: 600px;
+margin: 6% 85%;
     width: 20px;
     height: 20px;
-    background: purple;
-    position: relative;
+    position: absolute;
     animation: mymove 1s infinite;
     border-radius: 50%;
     @keyframes mymove{

@@ -36,9 +36,9 @@ const Login = () => {
     
     return ( 
         <Home>
-            <h1>Profile</h1>
+            <h1>Profile of </h1>
             {error && <p>Login Error</p>}
-            {!error && isLoading && <LoadingCube/>}
+            {!error && isLoading && <Err><LoadingCube/></Err>}
             {!error && !isLoading && (
                 <>
                     <ButtonLogin postTomongo={postTomongo}/>
@@ -57,6 +57,7 @@ const Login = () => {
 
 
 const Home = styled.div`
+height: 900px;
 margin: 5% -10%;
 padding-bottom: 450px;
 display: flex;
@@ -68,6 +69,7 @@ h1{
     font-size: 60px;
     border-bottom: 1px solid #fffcf2;
     color: #fffcf2;
+    margin-top: -90px;
 }
 `;
 
@@ -86,6 +88,11 @@ const UserStyle = styled.div`
         }
     }
     `;
+
+const Err = styled.div`
+background-color: #252422;
+height: 1000px;
+`;
 
     const LoadingCube = styled.div`
     margin-top: 400px;

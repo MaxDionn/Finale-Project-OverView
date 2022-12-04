@@ -75,7 +75,9 @@ const AllMovies = () => {
         return (
             <Home>
             {!stateUp || !stateLatest || !stateNow || !stateTop ? 
+            <Err>
                 <LoadingCube/>
+            </Err>
                 :
                 <div>
                     <Title>
@@ -240,6 +242,11 @@ img{
         border-radius: 50%;
         padding: 5px;
     }
+`;
+
+const Err = styled.div`
+    background-color: #252422;
+    height: 1000px;
 `;
 
 const LoadingCube = styled.div`

@@ -24,7 +24,9 @@ const Actors = () => {
     return ( 
         <Home>
             {!stateActors ? 
-            <LoadingCube/>
+            <Err>
+                <LoadingCube/>
+            </Err>
         :
             <div>
                 <div>
@@ -169,6 +171,11 @@ const MapSelec = styled.div`
         border-radius: 70px;
         margin: 50px 0px;
     }
+`;
+
+const Err = styled.div`
+    background-color: #252422;
+    height: 1000px;
 `;
 
     const LoadingCube = styled.div`

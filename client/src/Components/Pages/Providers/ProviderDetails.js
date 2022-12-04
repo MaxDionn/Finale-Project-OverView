@@ -24,7 +24,9 @@ const ProvidersDetails = () => {
     return ( 
         <Home>
             {!stateProviders ? 
+            <Err>
                 <LoadingCube/>
+            </Err>
                 :
                     <div>
                         <div>
@@ -96,6 +98,10 @@ const Posters = styled.div`
         width: fit-content;
         border-bottom: 1px solid black;
     }
+`;
+const Err = styled.div`
+    background-color: #252422;
+    height: 1000px;
 `;
 
 const LoadingCube = styled.div`

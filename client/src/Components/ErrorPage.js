@@ -18,9 +18,11 @@ return (
 const Error = styled.div`
 margin: 5% 5%;
 display: flex;
+height: 1000px;
 flex-direction: column;
 font-family: 'Montserrat Alternates', sans-serif;
 color: #fffcf2;
+background-color: #252422;
 align-items: center;
 h2{
     font-size: 40px;
