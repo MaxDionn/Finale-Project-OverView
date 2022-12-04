@@ -126,7 +126,7 @@ useEffect(() => {
                         <FavoriteTvShow tvShowId={stateTv.id} AddFavoriteTvShow={AddFavoriteTvShow} DeleteFavoriteTvShow={DeleteFavoriteTvShow}/>
                         </div>
                         <Detail>
-                            <h2>{stateTv.name}</h2>
+                            <h4>{stateTv.name}</h4>
                             <h1>Release : {stateTv.first_air_date}</h1>
                             <Genre>
                                 <h1>Genres : </h1>
@@ -189,7 +189,7 @@ useEffect(() => {
 const Right = styled.div`
     margin-left: 3%;
     padding-left: 3%;
-    border-left: 1px dotted lightgray;
+    border-left: 1px dotted black;
 `;
 
 const All= styled.div`
@@ -216,13 +216,12 @@ const Casting = styled(Link)`
     width: 400px;
     height:160px;
     display: flex;
-    border-bottom: 5px solid lightgray;
     border-radius: 50px;
-    border-top-right-radius:50%;
-    box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+    border-bottom: 10px solid #252422;
+    background-color: #ccc5b9;
     :hover{
         img{
-            box-shadow:rgba(149, 157, 165, 1.2) 0px 20px 70px;
+            box-shadow:#ccc5b9 0px 10px 5px;
             transition: 0.3s;
             cursor: pointer;
         }
@@ -239,14 +238,14 @@ const Casting = styled(Link)`
         border-bottom: 1px solid black;
         width: fit-content;
         margin-left: 10px;
-        margin-top: 0px;
+        margin-top: 10px;
     }
     p{
         font-size: 20px;
         margin-top: -20px;
         margin-left: 10px;
         font-weight: 600;
-        border-bottom: 1px solid lightgray;
+        border-bottom: 1px solid black;
         width: fit-content;
     }
     span{
@@ -270,10 +269,11 @@ const Casting = styled(Link)`
 
 const Home = styled.div`
 margin: 5% 5%;
-font-family: 'Indie Flower', cursive;
+font-family: 'Montserrat Alternates', sans-serif;
 h2{
     font-size: 40px;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid #fffcf2;
+    color: #fffcf2;
     width: fit-content;
     margin-left: 20px;
 }
@@ -300,8 +300,7 @@ const Poster = styled.div`
     height: 600px;
     display: flex;
     border-radius: 50px;
-    border-top-right-radius:50%;
-    box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+    background-color: #ccc5b9;
     img{
         border-radius: 50px;
         box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
@@ -328,8 +327,24 @@ margin-left: 10px;
         height: fit-content;
     }
     h1{
-        border-bottom: 1px solid lightgray;
+        border-bottom: 1px solid black;
         width: fit-content;
+        font-size: 20px;
+    }
+    span{
+        font-size: 20px;
+        margin-top:-30px;
+        margin-left: 15px;
+        text-align: left;
+        border: 3px solid red;
+        border-radius: 50%;
+        width: fit-content;
+        padding: 5px;
+    }
+    h4{
+        font-size: 40px;
+        width: fit-content;
+        border-bottom: 3px solid black;
     }
 `;
 

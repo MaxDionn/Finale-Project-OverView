@@ -16,9 +16,11 @@ import ActorsDetails from "./Pages/Actors/ActorsDetails";
 import MoodsDetails from "./Pages/Mood/MoodsDetails";
 import MoodsTvDetails from "./Pages/Mood/MoodsTvDetails";
 import SearchBar2 from "./SearchBar2";
+import styled from "styled-components";
 
 const App = () =>  {
   return (
+    <All>
     <Router>
       <Header/>
       <SearchBar2/>
@@ -40,7 +42,12 @@ const App = () =>  {
         <Route path="/moodTv/:id" element={<MoodsTvDetails />}/>
       </Routes>
     </Router>
+    </All>
   );
 }
+
+const All = styled.div`
+  background-color: #252422;
+`;
 
 export default App;

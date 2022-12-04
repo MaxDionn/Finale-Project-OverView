@@ -168,6 +168,9 @@ useEffect(() => {
 const Title = styled.div`
 display: flex;
 justify-content: space-around;
+h2{
+    color: #fffcf2;
+}
 `;
 
 const Under = styled.div`
@@ -179,21 +182,19 @@ const Casting = styled(Link)`
     width: 400px;
     height:220px;
     display: flex;
-    border-bottom: 5px solid lightgray;
     border-radius: 50px;
-    border-top-right-radius:50%;
-    box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+    background-color: #ccc5b9;
     cursor: pointer;
     :hover{
         img{
-            box-shadow:rgba(149, 157, 165, 1.2) 0px 20px 70px;
+            box-shadow:#ccc5b9 0px 10px 5px;
             transition: 0.3s;
         }
     }
     img{
         border-bottom-left-radius:50%;
         border-top-right-radius:50%;
-        box-shadow: 0px 10px 10px;
+        box-shadow: 0px 10px 5px;
         width: fit-content;
         height: 150px;
     }
@@ -202,14 +203,14 @@ const Casting = styled(Link)`
         border-bottom: 1px solid black;
         width: fit-content;
         margin-left: 10px;
-        margin-top: 0px;
+        margin-top: 10px;
     }
     p{
         font-size: 20px;
         margin-top: -10px;
         margin-left: 10px;
         font-weight: 600;
-        border-bottom: 1px solid lightgray;
+        border-bottom: 1px solid black;
         width: fit-content;
     }
     span{
@@ -222,7 +223,7 @@ const Casting = styled(Link)`
 `;
 
 const Cast = styled.div`
-display: grid;
+    display: grid;
     grid-template-columns: 400px 400px;
     text-align: center;
     align-items: center;
@@ -233,7 +234,7 @@ display: grid;
 const Crew = styled.div`
 margin-left: 2%;
 padding-left: 2%;
-border-left: 1px dotted lightgray;
+border-left: 1px dotted black;
 display: grid;
     grid-template-columns: 400px 400px;
     text-align: center;
@@ -244,7 +245,7 @@ display: grid;
 
 const Home = styled.div`
 margin: 5% 5%;
-font-family: 'Indie Flower', cursive;
+font-family: 'Montserrat Alternates', sans-serif;
 width: fit-content;
 h2{
     font-size: 40px;
@@ -256,35 +257,31 @@ h2{
 
 const Detail = styled.div`
 margin-left: 10px;
+background-color: #ccc5b9;
+border-radius: 50px;
+width: fit-content;
     h5{
         font-size: 25px;
         width: fit-content;
         margin-top: -20px;
         margin-left: 10px;
-        border-bottom: 1px solid lightgray;
+        border-bottom: 1px solid black;
         span{
             font-size: 20px;
             margin-right: 10px;
-        }
-    }
-    p{
-        font-size: 20px;
-        ::first-letter{
-            font-size: 30px;
-            color:red;
         }
     }
 `;
 
 const Poster = styled.div`
     height: fit-content;
+    width: fit-content;
     display: flex;
     border-radius: 50px;
-    border-top-right-radius:50%;
-    box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+    background-color: #ccc5b9;
     img{
         border-radius: 50px;
-        box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+        box-shadow: 0px 10px 10px;
         width: 300px;
         height: fit-content;
     }

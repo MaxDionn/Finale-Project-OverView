@@ -19,7 +19,8 @@ const Error = styled.div`
 margin: 5% 5%;
 display: flex;
 flex-direction: column;
-font-family: 'Indie Flower', cursive;
+font-family: 'Montserrat Alternates', sans-serif;
+color: #fffcf2;
 align-items: center;
 h2{
     font-size: 40px;

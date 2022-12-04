@@ -96,10 +96,11 @@ const Home = styled.div`
 margin: 5% 6%;
 display: flex;
 flex-direction: row;
-font-family: 'Indie Flower', cursive;
+font-family: 'Montserrat Alternates', sans-serif;
 h2{
     font-size: 40px;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #fffcf2;
+    color: #fffcf2;
 }
 `;
 
@@ -121,8 +122,7 @@ const MapSelec = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     border-radius: 50px;
-    border-top-right-radius:50%;
-    box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+    background-color: #ccc5b9;
     cursor: pointer;
     font-size: 30px;
     align-items: center;
@@ -132,15 +132,10 @@ const MapSelec = styled.div`
             border-bottom: 3px solid transparent;
         }
         :hover{
-            transition: 0.7s;
-            box-shadow: #ffc2d1 0px 10px 70px;
             h4{
-                transition: 0.2s;
-                border-bottom: 1px solid #ffc2d1;
-                border-left: 5px solid #ffc2d1;
-                border-right: 5px solid #ffc2d1;
-                border-radius: 50%;
-                width: 290px;
+                transition: 0.5s;
+                border-bottom: 1px solid red;
+                width: fit-content;
             }
         }
     `;

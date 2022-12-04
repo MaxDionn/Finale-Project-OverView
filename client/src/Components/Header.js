@@ -9,13 +9,13 @@ const Header = () => {
     return (
         <Head>
             <StyleLink to={"/movies"}>Movies</StyleLink>
-            <StyleLink to={"/tvShows"}>Tv Shows</StyleLink>
             <StyleLink to={"/actors"}>Actors</StyleLink>
-            <StyleLink to={"/"}><h1>B. View</h1></StyleLink>
             <StyleLink to={"/moods"}>Genres</StyleLink>
-            <StyleLink to={"/providers"}>Providers</StyleLink>
             <StyleLink to={"/about"}>About</StyleLink>
-            <StyleLink to={"/login"}>Log</StyleLink>
+            <StyleLink to={"/"}><h1>OverView</h1></StyleLink>
+            <StyleLink to={"/tvShows"}>Tv Shows</StyleLink>
+            <StyleLink to={"/providers"}>Providers</StyleLink>
+            <StyleLink to={"/login"}>Log in</StyleLink>
             <ProfileLink to={`/profile/${user?.name}`}>
             <GiBodySwapping size={50}style={{background: "transparent", color:"white"}} />
             </ProfileLink>
@@ -24,36 +24,36 @@ const Header = () => {
 }
 
 const ProfileLink = styled(Link)`
-padding: 0px 10px;
+padding: 0px 20px;
 :hover{
         cursor: pointer;
-        border-radius: 50%;
-        border-bottom: 1px solid white;
-        border-left: 3px solid white;
-        border-right: 3px solid white;
-        transition: 0.2s;
+        border-bottom: 1px solid #fffcf2;
+        transition: 0.4s;
     }
 `;
 
 const StyleLink = styled(NavLink)`
+all: unset;
 position: relative;
 font-size: 30px;
 padding: 10px;
-color: white;
+color: #fffcf2;
     :hover{
         cursor: pointer;
-        border-radius: 50%;
-        border-bottom: 1px solid white;
-        border-left: 3px solid white;
-        border-right: 3px solid white;
-        transition: 0.2s;
+        border-bottom: 1px solid #fffcf2;
+        transition: 0.4s;
     }
 
     h1{
+        all: unset;
+        font-family: 'Secular One', sans-serif;
         font-size: 50px;
-        font-weight: lighter;
         color: white;
         padding: 0px 30px;
+        border-radius: 50%;
+        border-bottom: 1px solid #fffcf2;
+        border-left: 3px solid #fffcf2;
+        border-right: 3px solid #fffcf2;
     }
 `;
 
@@ -62,9 +62,7 @@ display: flex;
 justify-content: space-around;
 align-items: center;
 background-image: url("/seats.jpg");
-font-family: 'Lobster', cursive;
-box-shadow: rgba(149, 157, 165, 1.2) 0px 50px 70px;
-border-radius: 50%;
+font-family: 'Montserrat Alternates', sans-serif;
 `;
 
 

@@ -52,10 +52,11 @@ const Home = styled.div`
 margin: 5% 8%;
 display: flex;
 flex-direction: row;
-font-family: 'Indie Flower', cursive;
+font-family: 'Montserrat Alternates', sans-serif;
 h2{
     font-size: 40px;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid #fffcf2;
+    color: #fffcf2;
     width: fit-content;
 }
 `;
@@ -68,27 +69,25 @@ const Posters = styled(Link)`
     height: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
     border-radius: 50px;
-    border-top-right-radius:50%;
-    box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+    background-color: #ccc5b9;
     cursor: pointer;
     :hover{
         img{
-            box-shadow:rgba(149, 157, 165, 1.2) 0px 20px 70px;
+            box-shadow:#ccc5b9 0px 10px 5px;
             transition: 0.3s;
         }
     }
     img{
         border-bottom-left-radius:50%;
-        border-top-right-radius:50%;
+        border-top-right-radius:50px;
         box-shadow: 0px 10px 10px;
     }
     h3{
         font-size: 30px;
         width:fit-content;
-        margin-left: 10%;
-        border-bottom: 1px solid lightgray;
+        border-bottom: 1px solid black;
     }
 `;
 

@@ -8,7 +8,7 @@ const ButtonLogout = () => {
         isAuthenticated && (
             <StyleButton>
             <button onClick={() => logout()}>
-                <h2>Sign Out </h2>
+                <h2>Sign out </h2>
             </button>
             </StyleButton>
         )
@@ -20,17 +20,16 @@ const StyleButton = styled.div`
     margin: 20px;
     button{
         border: 3px solid black;
-        border-radius: 50%;
+        border-radius: 50px;
+        background-color: #ccc5b9;
         padding: 10px;
-        box-shadow: rgba(149, 157, 125, 1.2) 0px 10px 30px;
         :hover{
-            box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
-            cursor: pointer;
+                cursor: pointer;
         }
     }
     h2{
         all: unset;
-        font-family: 'Indie Flower', cursive;
+        font-family: 'Montserrat Alternates', sans-serif;
         font-size: 30px;
         font-weight: 700;
         padding: 10px;

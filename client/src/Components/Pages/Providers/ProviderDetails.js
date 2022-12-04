@@ -30,7 +30,7 @@ const ProvidersDetails = () => {
                         <div>
                             <h2>Provider</h2>
                         </div>
-                        <div>
+                        <Logo>
                         {stateProviders.map((provider) => {
                             let backdrop_url = "https://image.tmdb.org/t/p/w300";
                             if(id == provider.provider_id){
@@ -44,22 +44,27 @@ const ProvidersDetails = () => {
                                 return <div key={Math.floor(Math.random() * 140000000000)}>{""}</div>
                             }
                             })}
-                        </div>
+                        </Logo>
                     </div>
             }
         </Home>
     )
 }
 
+const Logo = styled.div`
+    padding-bottom: 200px;
+`;
+
 const Home = styled.div`
 margin: 5% 8%;
 display: flex;
 flex-direction: row;
-font-family: 'Indie Flower', cursive;
+font-family: 'Montserrat Alternates', sans-serif;
 h2{
     font-size: 40px;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid #fffcf2;
     width: fit-content;
+    color: #fffcf2;
 }
 `;
 
@@ -67,18 +72,17 @@ const Posters = styled.div`
     all: unset;
     width: 300px;
     margin: 0px;
-    padding: 0px;
     height: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
     border-radius: 50px;
-    border-top-right-radius:50%;
-    box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
+    border-top-right-radius:50px;
+    background-color: #ccc5b9;
     cursor: pointer;
     :hover{
         img{
-            box-shadow:rgba(149, 157, 165, 1.2) 0px 20px 70px;
+            box-shadow:#ccc5b9 0px 10px 5px;
             transition: 0.3s;
         }
     }
@@ -90,8 +94,7 @@ const Posters = styled.div`
     h3{
         font-size: 30px;
         width: fit-content;
-        margin-left: 10%;
-        border-bottom: 1px solid lightgray;
+        border-bottom: 1px solid black;
     }
 `;
 

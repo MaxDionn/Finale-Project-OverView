@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Login from "./Pages/Profile/Login"
 
 const SearchBar2 = () => {
     let backdrop_url = "https://image.tmdb.org/t/p/w500";
@@ -86,18 +87,17 @@ useEffect(()=>{
 
 
 const StyleForm = styled.form`
-    position: absolute;
-    font-family: 'Indie Flower', cursive;
+    font-family: 'Montserrat Alternates', sans-serif;
     width: fit-content;
-    
+    margin: 10px;
         input{
-            border: 2px solid black;
+            border: 2px solid #fffcf2;
             border-radius: 50px;
             width: 400px;
             font-size: 20px;
             background: transparent;
-            margin-left: 10px;
-            padding: 3px;
+            padding: 5px;
+            color: #fffcf2;
         }
 `;
 

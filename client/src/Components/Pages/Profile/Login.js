@@ -58,14 +58,16 @@ const Login = () => {
 
 const Home = styled.div`
 margin: 5% -10%;
+padding-bottom: 450px;
 display: flex;
 flex-direction: column;
 align-items: center;
 margin-left: -10%;
-font-family: 'Indie Flower', cursive;
+font-family: 'Montserrat Alternates', sans-serif;
 h1{
     font-size: 60px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #fffcf2;
+    color: #fffcf2;
 }
 `;
 
@@ -75,12 +77,11 @@ const UserStyle = styled.div`
     img{
         border-radius: 50%;
         border: 3px solid black;
-        box-shadow: rgba(149, 157, 165, 1.2) 0px 20px 70px;
     }
     h2{
         font-size: 40px;
+        color: #fffcf2;
         span{
-            color: red;
             font-size: 50px;
         }
     }

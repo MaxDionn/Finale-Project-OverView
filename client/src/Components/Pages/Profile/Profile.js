@@ -29,15 +29,16 @@ const Profile = () => {
         return (
             <Home>
             {!stateProfile ? 
-            <div>
-            <h2>Please Sign In first</h2>
+                <div>
+            <h4>Please sign up or log in</h4>
+            <h4>to your account</h4>
             <LoadingCube/>
             </div>
             : 
             <div>
                 
                 <h2> Profile of : </h2>
-                <h3><span>-</span> {id} <span>-</span></h3>
+                <h3><span>-</span>{id}<span>-</span></h3>
                 <Section>    
                     <h1>Favorite Actors : </h1>
                     {stateProfile.actorId.map((actor)=> {
@@ -75,7 +76,7 @@ const Profile = () => {
 }
 
 const Section = styled.div`
-border-bottom: 1px solid lightgray;
+border-bottom: 1px solid #fffcf2;
 `;
 
 const Posters = styled(Link)`
@@ -96,11 +97,13 @@ font-size: 30px;
 const Home = styled.div`
 margin: 5% 40%;
 text-align: center;
-font-family: 'Indie Flower', cursive;
+font-family: 'Montserrat Alternates', sans-serif;
+color: #fffcf2;
 h2{
     font-size: 40px;
     width: fit-content;
     margin-left: 25%;
+    margin-top: -50px;
 }
 h3{
     font-size: 40px;
@@ -112,10 +115,13 @@ h3{
         font-size: 50px;
         }
 }
+h4{
+    font-size: 40px;
+}
 `;
 
 const LoadingCube = styled.div`
-    margin-top: 400px;
+    margin-top: 600px;
     width: 20px;
     height: 20px;
     background: purple;
